@@ -5,14 +5,13 @@ ruby '2.6.3'
 
 gem 'rails', '~> 5.2.3'
 
+gem 'bcrypt'
+gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
 gem 'sass-rails'
-gem 'uglifier'
-
 gem 'turbolinks'
-gem 'bcrypt'
-gem 'bootsnap', require: false
+gem 'uglifier'
 
 group :development, :test do
   gem 'byebug'
@@ -20,14 +19,14 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'web-console'
 end
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
 end

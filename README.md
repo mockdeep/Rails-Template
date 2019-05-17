@@ -5,6 +5,7 @@
   * configure Github branch protection
   * set up deployment
   * auto-deploy from CircleCI
+  * add bundler-audit
   * set up brakeman (security scanner)
   * set up rubocop
   * set up eslint
