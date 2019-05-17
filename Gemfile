@@ -15,6 +15,8 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'byebug'
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
   gem 'rspec-rails'
 end
 
