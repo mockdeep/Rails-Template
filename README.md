@@ -23,7 +23,6 @@
   * haml-lint
   * rubocop-rspec
   * scss_lint
-  * webdriver helper
   * shoulda-matchers
   * simplecov
   * webmock
