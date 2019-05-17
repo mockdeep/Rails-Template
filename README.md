@@ -2,11 +2,9 @@
 
 ## Todo
 * set up infrastructure
-  * configure Github branch protection
   * set up deployment
   * auto-deploy from CircleCI
   * add bundler-audit
-  * set up brakeman (security scanner)
   * set up rubocop
   * set up eslint
   * set up haml?
@@ -19,7 +17,7 @@
   * strong migrations
   * webpacker
   * faker (dev/test)
-  * guard, guard-rspec, guard-rubocop (dev/test)
+  * guard-rubocop (dev/test)
   * haml-lint
   * rubocop-rspec
   * scss_lint

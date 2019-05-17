@@ -64,6 +64,10 @@ jobs:
           command: bin/rails db:setup --trace
 
       - run:
+          name: Brakeman
+          command: bundle exec brakeman
+
+      - run:
           name: Run rspec in parallel
           command: |
             bundle exec rake

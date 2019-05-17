@@ -21,6 +21,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'brakeman', require: false
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
