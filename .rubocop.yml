@@ -1,0 +1,52 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rspec
+
+AllCops:
+  DefaultFormatter: fuubar
+  EnabledByDefault: true
+  TargetRailsVersion: 5.2
+  TargetRubyVersion: 2.6
+Rails: { Enabled: true }
+
+Style/MethodCallWithArgsParentheses:
+  IgnoredMethods:
+    - exec
+    - exit
+    - gem
+    - include
+    - load
+    - puts
+    - require
+    - require_relative
+    - ruby
+    - source
+    - warn
+  IncludedMacros:
+    - system!
+  Exclude:
+    - 'config.ru'
+    - 'config/boot.rb'
+    - 'config/puma.rb'
+Style/MixinUsage: { Exclude: ['bin/**/*'] }
+Style/StringLiterals: { EnforcedStyle: double_quotes }
+Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
+Metrics/LineLength:
+  Exclude:
+    - 'config/**/*'
+    - 'db/schema.rb'
+  AutoCorrect: true
+
+################################################################################
+#
+# Rules we don't want to enable
+#
+################################################################################
+
+Bundler/GemComment: { Enabled: false }
+Style/Copyright: { Enabled: false }
+Style/Documentation: { Enabled: false }
+Style/DocumentationMethod: { Enabled: false }
+Style/InlineComment: { Enabled: false }
+Style/MissingElse: { Enabled: false }

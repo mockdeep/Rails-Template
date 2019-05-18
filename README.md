@@ -5,7 +5,7 @@
   * set up deployment
   * auto-deploy from CircleCI
   * add bundler-audit
-  * set up rubocop
+  * configure RSpec
   * set up eslint
   * set up haml?
   * factorybot

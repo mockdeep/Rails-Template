@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 guard :rspec, cmd: "bundle exec rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
@@ -10,7 +12,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   ruby = dsl.ruby
   dsl.watch_spec_files_for(ruby.lib_files)
 
-  rails = dsl.rails(view_extensions: %w(haml))
+  rails = dsl.rails(view_extensions: ["haml"])
   dsl.watch_spec_files_for(rails.app_files)
   dsl.watch_spec_files_for(rails.views)
 
