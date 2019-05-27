@@ -17,6 +17,7 @@ gem "uglifier"
 
 group :development, :test do
   gem "byebug"
+  gem "faker"
   gem "guard", require: false
   gem "guard-rspec", require: false
   gem "rspec-rails"
@@ -35,5 +36,6 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
   gem "webdrivers"
 end
