@@ -68,6 +68,10 @@ jobs:
           command: bundle exec brakeman
 
       - run:
+          name: Stylelint
+          command: yarn stylelint
+
+      - run:
           name: Rubocop
           command: bundle exec rubocop
 
