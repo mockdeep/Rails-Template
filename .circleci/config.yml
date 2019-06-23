@@ -29,8 +29,8 @@ jobs:
       # https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - faq-bundle-{{ checksum "Gemfile.lock" }}
-            - faq-bundle-
+            - bundle-{{ checksum "Gemfile.lock" }}
+            - bundle-
 
       - run: # Install Ruby dependencies
           name: Bundle Install
@@ -41,21 +41,21 @@ jobs:
           command: bundle exec rails bundle:audit
 
       - save_cache:
-          key: faq-bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       - restore_cache:
           keys:
-            - faq-yarn-{{ checksum "yarn.lock" }}
-            - faq-yarn-
+            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-
 
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
 
       - save_cache:
-          key: faq-yarn-{{ checksum "yarn.lock" }}
+          key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
