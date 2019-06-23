@@ -16,6 +16,7 @@ gem "turbolinks"
 gem "uglifier"
 
 group :development, :test do
+  gem "bundler-audit"
   gem "byebug"
   gem "faker"
   gem "guard", require: false
