@@ -1,6 +1,9 @@
 {
   "name": "FAQ",
   "private": true,
+  "engines": {
+    "node": "10.16.0"
+  },
   "dependencies": {},
   "devDependencies": {
     "stylelint": "^10.1.0",
