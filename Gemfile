@@ -10,6 +10,7 @@ gem "rails", "~> 5.2.3"
 gem "bcrypt"
 gem "bootsnap", require: false
 gem "pg"
+gem "pry-rails"
 gem "puma"
 gem "sass-rails"
 gem "turbolinks"
@@ -21,6 +22,7 @@ group :development, :test do
   gem "faker"
   gem "guard", require: false
   gem "guard-rspec", require: false
+  gem "pry-byebug"
   gem "rspec-rails"
 end
 
