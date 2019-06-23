@@ -7,12 +7,12 @@ default: &default
 
 development:
   <<: *default
-  database: faq_development
+  database: yourappnamehere_development
 
 test:
   <<: *default
-  database: faq_test
+  database: yourappnamehere_test
 
 production:
   <<: *default
-  database: faq_production
+  database: yourappnamehere_production
