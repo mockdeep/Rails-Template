@@ -11,16 +11,19 @@ Rails: { Enabled: true }
 
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - describe
     - exec
     - exit
     - gem
     - include
     - load
     - puts
+    - rails_require
     - require
     - require_relative
     - ruby
     - source
+    - to
     - warn
   IncludedMacros:
     - system!

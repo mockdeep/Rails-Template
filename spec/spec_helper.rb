@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start("rails")
+SimpleCov.minimum_coverage(100)
+
+def rails_require(path)
+  require_relative "../#{path}"
+end
+
 RSpec.configure do |config|
   config.expect_with(:rspec) do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
