@@ -28,3 +28,8 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
 end
+
+guard :haml_lint do
+  watch(/.+\.html.*\.haml$/)
+  watch(%r{(?:.+/)?\.haml-lint\.yml$}) { |m| File.dirname(m[0]) }
+end

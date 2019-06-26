@@ -9,6 +9,7 @@ gem "rails", "~> 5.2.3"
 
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "haml-rails"
 gem "pg"
 gem "pry-rails"
 gem "puma"
@@ -20,14 +21,16 @@ group :development, :test do
   gem "bundler-audit"
   gem "byebug"
   gem "faker"
-  gem "guard", require: false
-  gem "guard-rspec", require: false
   gem "pry-byebug"
   gem "rspec-rails"
 end
 
 group :development do
   gem "brakeman", require: false
+  gem "guard", require: false
+  gem "guard-haml_lint", require: false
+  gem "guard-rspec", require: false
+  gem "haml_lint", require: false
   gem "listen"
   gem "rubocop"
   gem "rubocop-rails"
