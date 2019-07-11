@@ -47,7 +47,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     bcrypt (3.1.13)
-    bindex (0.7.0)
+    bindex (0.8.1)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
     brakeman (4.5.1)
