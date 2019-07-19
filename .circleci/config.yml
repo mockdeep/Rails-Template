@@ -54,6 +54,10 @@ jobs:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
 
+      - run:
+          name: Yarn Audit
+          command: yarn audit
+
       - save_cache:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
