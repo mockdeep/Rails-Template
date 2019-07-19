@@ -30,6 +30,7 @@ group :development do
   gem "guard", require: false
   gem "guard-haml_lint", require: false
   gem "guard-rspec", require: false
+  gem "guard-rubocop", require: false
   gem "haml_lint", require: false
   gem "listen"
   gem "rubocop"

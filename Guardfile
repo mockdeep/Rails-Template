@@ -33,3 +33,13 @@ guard :haml_lint do
   watch(/.+\.html.*\.haml$/)
   watch(%r{(?:.+/)?\.haml-lint\.yml$}) { |m| File.dirname(m[0]) }
 end
+
+guard :rubocop, all_on_start: false, cli: ["-a"] do
+  watch(/.+\.rb$/)
+  watch(%r{bin/*})
+  watch(/Guardfile/)
+  watch(/Rakefile/)
+  watch(/.+\.rake$/)
+  watch(/.+\.ru$/)
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+end
