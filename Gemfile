@@ -14,6 +14,7 @@ gem "pg"
 gem "pry-rails"
 gem "puma"
 gem "sass-rails"
+gem "strong_migrations"
 gem "turbolinks"
 gem "uglifier"
 
