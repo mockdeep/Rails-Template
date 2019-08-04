@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require "simplecov"
-SimpleCov.start("rails")
-SimpleCov.minimum_coverage(100)
+if ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start("rails")
+  SimpleCov.minimum_coverage(100)
+end
 
 def rails_require(path)
   require_relative "../#{path}"

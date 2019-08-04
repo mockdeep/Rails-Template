@@ -90,7 +90,9 @@ jobs:
       - run:
           name: Run rspec in parallel
           command: |
-            bundle exec rake
+            COVERAGE=true bundle exec rspec
+            DRIVER=firefox bundle exec rspec spec/system
+            DRIVER=chrome bundle exec rspec spec/system
             # bundle exec rspec --profile 10 \
             #                   --format RspecJunitFormatter \
             #                   --out test_results/rspec.xml \

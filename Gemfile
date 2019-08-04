@@ -44,7 +44,8 @@ group :development do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", require: false
+  gem "capybara-screenshot", require: false
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "simplecov", require: false
