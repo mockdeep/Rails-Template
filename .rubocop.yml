@@ -7,6 +7,7 @@ AllCops:
   EnabledByDefault: true
   TargetRailsVersion: 5.2
   TargetRubyVersion: 2.6
+  Exclude: [vendor/**/*]
 Rails: { Enabled: true }
 
 Style/MethodCallWithArgsParentheses:
