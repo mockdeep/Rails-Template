@@ -30,12 +30,12 @@ group :everything, halt_on_fail: true do
     watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
   end
 
-  guard :haml_lint do
+  guard :haml_lint, all_on_start: false do
     watch(/.+\.html.*\.haml$/)
     watch(%r{(?:.+/)?\.haml-lint\.yml$}) { |m| File.dirname(m[0]) }
   end
 
-  guard :rubocop, all_on_start: false, cli: ["-a"] do
+  guard :rubocop, all_on_start: false, cli: ["-a", "--display-cop-names"] do
     watch(/.+\.rb$/)
     watch(%r{bin/*})
     watch(/Guardfile/)
