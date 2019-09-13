@@ -10,6 +10,9 @@ AllCops:
   Exclude: [node_modules/**/*, vendor/**/*]
 Rails: { Enabled: true }
 
+Metrics/BlockLength:
+  Exclude:
+    - Guardfile
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - describe
