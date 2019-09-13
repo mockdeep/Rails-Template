@@ -11,4 +11,12 @@
     = javascript_pack_tag("application", "data-turbolinks-track": "reload")
 
   %body
+    - if current_user
+      = current_user.email
+      = link_to("Account", account_path(current_user))
+    - else
+      = link_to("Sign Up", new_account_path)
+    .flashes
+      - flash.each do |type, message|
+        %div{ class: "flash-#{type}" }= message
     = yield
