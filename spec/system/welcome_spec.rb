@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "welcome page", type: :system do
   it "has welcome text" do
-    visit "/"
+    visit("/")
 
     expect(page).to have_text("Welcome")
   end

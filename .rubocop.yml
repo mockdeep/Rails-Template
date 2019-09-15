@@ -16,11 +16,14 @@ Metrics/BlockLength:
     - Guardfile
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - default
     - describe
     - exec
     - exit
     - gem
     - include
+    - it
+    - layout
     - load
     - not_to
     - puts
@@ -30,13 +33,18 @@ Style/MethodCallWithArgsParentheses:
     - ruby
     - source
     - to
+    - validates
     - warn
-  IncludedMacros:
-    - system!
+  IgnoreMacros: false
   Exclude:
+    - bin/**/*
     - 'config.ru'
     - 'config/boot.rb'
     - 'config/puma.rb'
+    - 'config/routes.rb'
+    - db/**/*.rb
+    - Guardfile
+    - Gemfile
 Style/MixinUsage: { Exclude: ['bin/**/*'] }
 Style/StringLiterals: { EnforcedStyle: double_quotes }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }

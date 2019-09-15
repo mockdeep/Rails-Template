@@ -12,10 +12,10 @@ driver = ENV.fetch("DRIVER").to_sym if ENV.key?("DRIVER")
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
-    driven_by driver || :rack_test
+    driven_by(driver || :rack_test)
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by driver || :selenium_headless
+    driven_by(driver || :selenium_headless)
   end
 end
