@@ -58,3 +58,4 @@ Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
 Style/InlineComment: { Enabled: false }
 Style/MissingElse: { Enabled: false }
+Style/StringHashKeys: { Enabled: false }
