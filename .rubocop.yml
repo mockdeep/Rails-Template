@@ -47,6 +47,7 @@ Style/MethodCallWithArgsParentheses:
     - Gemfile
 Style/MixinUsage: { Exclude: ['bin/**/*'] }
 Style/StringLiterals: { EnforcedStyle: double_quotes }
+Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Metrics/LineLength:
   Exclude:
