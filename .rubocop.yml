@@ -11,23 +11,46 @@ AllCops:
   Exclude: [node_modules/**/*, vendor/**/*]
 Rails: { Enabled: true }
 
+################################################################################
+#
+# Rules that depart from rubocop defaults
+#
+################################################################################
+
 Metrics/BlockLength:
+  ExcludedMethods:
+    - describe
   Exclude:
     - Guardfile
+Metrics/LineLength:
+  Exclude:
+    - 'config/**/*'
+    - 'db/schema.rb'
+  AutoCorrect: true
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/**/*.rb
+RSpec/MessageExpectation: { EnforcedStyle: expect }
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - attr_reader
+    - context
     - default
     - describe
     - exec
     - exit
+    - fit
     - gem
+    - helper_method
     - include
     - it
     - layout
     - load
     - not_to
+    - p
     - puts
     - rails_require
+    - raise
     - require
     - require_relative
     - ruby
@@ -47,13 +70,9 @@ Style/MethodCallWithArgsParentheses:
     - Gemfile
 Style/MixinUsage: { Exclude: ['bin/**/*'] }
 Style/StringLiterals: { EnforcedStyle: double_quotes }
+Style/SymbolArray: { EnforcedStyle: brackets }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
-Metrics/LineLength:
-  Exclude:
-    - 'config/**/*'
-    - 'db/schema.rb'
-  AutoCorrect: true
 
 ################################################################################
 #
@@ -62,6 +81,7 @@ Metrics/LineLength:
 ################################################################################
 
 Bundler/GemComment: { Enabled: false }
+Style/ConstantVisibility: { Enabled: false }
 Style/Copyright: { Enabled: false }
 Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
