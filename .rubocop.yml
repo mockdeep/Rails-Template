@@ -6,10 +6,7 @@ AllCops:
   DefaultFormatter: fuubar
   DisplayCopNames: true
   EnabledByDefault: true
-  TargetRailsVersion: 5.2
-  TargetRubyVersion: 2.6
   Exclude: [node_modules/**/*, vendor/**/*]
-Rails: { Enabled: true }
 
 ################################################################################
 #
