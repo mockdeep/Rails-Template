@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
     user = User.new(user_params)
     if user.save
       flash[:success] = "Account created successfully"
-      session[:user_id] = user.id
+      log_in(user)
       redirect_to(root_path)
     else
       flash.now[:error] = "There was a problem setting up your account"
@@ -37,7 +37,7 @@ class AccountsController < ApplicationController
 
   def destroy
     if current_user.destroy
-      session.clear
+      log_out
       flash[:success] = "Account permanently deleted"
       redirect_to(root_path)
     else
