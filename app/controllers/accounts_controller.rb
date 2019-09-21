@@ -3,7 +3,7 @@
 require_relative "application_controller"
 
 class AccountsController < ApplicationController
-  before_action(:authenticate_user, only: [:show, :update, :destroy])
+  skip_before_action(:authenticate_user, only: [:new, :create])
 
   def new
     render(locals: { user: User.new })

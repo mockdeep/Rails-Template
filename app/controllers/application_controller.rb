@@ -3,6 +3,8 @@
 require "action_controller"
 
 class ApplicationController < ActionController::Base
+  before_action(:authenticate_user)
+
   private
 
   def current_user
