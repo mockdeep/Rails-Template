@@ -24,6 +24,7 @@ Metrics/LineLength:
     - 'config/**/*'
     - 'db/schema.rb'
   AutoCorrect: true
+Rails/FilePath: { EnforcedStyle: slashes }
 RSpec/MultipleExpectations:
   Exclude:
     - spec/system/**/*.rb
@@ -70,6 +71,7 @@ Style/StringLiterals: { EnforcedStyle: double_quotes }
 Style/SymbolArray: { EnforcedStyle: brackets }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
+Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
 
 ################################################################################
 #
@@ -84,4 +86,5 @@ Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
 Style/InlineComment: { Enabled: false }
 Style/MissingElse: { Enabled: false }
+Style/SafeNavigation: { Enabled: false }
 Style/StringHashKeys: { Enabled: false }

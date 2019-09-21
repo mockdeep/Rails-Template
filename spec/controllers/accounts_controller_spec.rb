@@ -6,13 +6,13 @@ RSpec.describe AccountsController, type: :controller do
   valid_create_params = { user: {
     email: "demo@exampoo.com",
     password: "super-secure",
-    password_confirmation: "super-secure"
+    password_confirmation: "super-secure",
   } }
 
   invalid_create_params = { user: {
     email: "demo#exampoo.com",
     password: "super-secure",
-    password_confirmation: "not-super-insecure"
+    password_confirmation: "not-super-insecure",
   } }
 
   describe "#new" do
