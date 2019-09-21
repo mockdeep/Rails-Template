@@ -60,10 +60,10 @@ RSpec.describe AccountsController, type: :controller do
   end
 
   describe "#show" do
-    it "redirects to root path when user is not logged in" do
+    it "redirects to log in page when user is not logged in" do
       get(:show)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(new_session_path)
     end
 
     it "renders the user account page" do
@@ -81,10 +81,10 @@ RSpec.describe AccountsController, type: :controller do
     invalid_update_params = { user: { email: "new#email.com" } }
 
     context "when the user is not logged in" do
-      it "redirects to root path when user is not logged in" do
+      it "redirects to log in page" do
         put(:update, params: valid_update_params)
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(new_session_path)
       end
 
       it "does not update the user" do
@@ -155,10 +155,10 @@ RSpec.describe AccountsController, type: :controller do
 
   describe "#destroy" do
     context "when user is not logged in" do
-      it "redirects to root path" do
+      it "redirects to log in page" do
         delete(:destroy)
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(new_session_path)
       end
 
       it "does not destroy the user" do

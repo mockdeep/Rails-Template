@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   validates :email, presence: true, format: URI::MailTo::EMAIL_REGEXP
 
+  def self.find_by(args)
+    super || NullUser.new
+  end
+
   def self.find(id)
     id ? super : NullUser.new
   end
