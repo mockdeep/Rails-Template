@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 group :everything, halt_on_fail: true do
-  guard :rspec, cmd: "bundle exec rspec" do
+  rspec_options = {
+    all_after_pass: false,
+    all_on_start: false,
+    failed_mode: :keep,
+    cmd: "bundle exec spring rspec",
+  }
+
+  guard :rspec, rspec_options do
     require "guard/rspec/dsl"
     dsl = Guard::RSpec::Dsl.new(self)
 
