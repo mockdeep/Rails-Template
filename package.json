@@ -15,7 +15,7 @@
   "devDependencies": {
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.1"
   },
   "scripts": {
     "stylelint": "./node_modules/stylelint/bin/stylelint.js 'app/assets/stylesheets/**/*'"
