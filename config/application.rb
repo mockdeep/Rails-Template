@@ -18,6 +18,8 @@ module YourAppNameHere
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    Rails.application.config.action_view.form_with_generates_remote_forms = false
+    config.action_view.form_with_generates_remote_forms = false
+
+    config.autoload_paths << Rails.root.join("app/models/nulls")
   end
 end

@@ -3,6 +3,12 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  user_params = {
+    email: "demo@exampoo.com",
+    password: "super-secure",
+    password_confirmation: "super-secure",
+  }
+
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to have_secure_password }
 
@@ -20,5 +26,30 @@ RSpec.describe User, type: :model do
     ]
 
     expect(described_class.new).not_to allow_values(bad_emails).for(:email)
+  end
+
+  describe ".find" do
+    context "when id is present" do
+      it "returns the user when found" do
+        user = described_class.create!(user_params)
+
+        expect(described_class.find(user.id)).to eq(user)
+      end
+
+      it "raises an error when user is not found" do
+        expect { described_class.find(5) }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "returns a null user when id is not present" do
+      expect(described_class.find(nil)).to be_a(NullUser)
+    end
+  end
+
+  describe "#logged_in?" do
+    it "returns true" do
+      expect(described_class.new.logged_in?).to be(true)
+    end
   end
 end

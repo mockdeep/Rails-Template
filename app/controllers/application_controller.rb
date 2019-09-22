@@ -14,15 +14,15 @@ class ApplicationController < ActionController::Base
 
   def log_out
     session.clear
-    @current_user = nil
+    @current_user = NullUser.new
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session.key?(:user_id)
+    @current_user ||= User.find(session[:user_id])
   end
   helper_method :current_user
 
   def authenticate_user
-    redirect_to(root_path) unless current_user
+    redirect_to(root_path) unless current_user.logged_in?
   end
 end
