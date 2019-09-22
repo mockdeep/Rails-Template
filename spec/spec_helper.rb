@@ -7,6 +7,7 @@ if ENV["COVERAGE"]
 end
 
 require "pry-byebug"
+require_relative "./support/vcr"
 
 def rails_require(path)
   require_relative "../#{path}"
