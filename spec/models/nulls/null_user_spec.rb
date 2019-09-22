@@ -12,4 +12,10 @@ RSpec.describe NullUser do
       expect(described_class.new.logged_in?).to be(false)
     end
   end
+
+  describe "#admin?" do
+    it "returns false" do
+      expect(described_class.new.admin?).to be(false)
+    end
+  end
 end

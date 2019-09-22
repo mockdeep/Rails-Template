@@ -64,4 +64,10 @@ RSpec.describe User, type: :model do
       expect(described_class.new.logged_in?).to be(true)
     end
   end
+
+  describe "#admin?" do
+    it "returns false" do
+      expect(described_class.new.admin?).to be(false)
+    end
+  end
 end

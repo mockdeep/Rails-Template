@@ -16,4 +16,8 @@ class User < ApplicationRecord
   def logged_in?
     true
   end
+
+  def admin?
+    false
+  end
 end

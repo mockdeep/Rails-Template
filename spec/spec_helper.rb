@@ -6,6 +6,8 @@ if ENV["COVERAGE"]
   SimpleCov.minimum_coverage(100)
 end
 
+require "pry-byebug"
+
 def rails_require(path)
   require_relative "../#{path}"
 end

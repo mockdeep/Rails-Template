@@ -2,7 +2,7 @@
 
 FAKE_ID = "__fake_id__"
 
-def record_double(klass, method_overrides)
+def record_double(klass, **method_overrides)
   fake_record = klass.new
   method_overrides.reverse_merge!(id: FAKE_ID)
 
