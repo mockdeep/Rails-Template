@@ -26,6 +26,8 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  config.action_controller.action_on_unpermitted_parameters = :raise
+
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 
