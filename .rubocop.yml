@@ -19,6 +19,7 @@ Metrics/BlockLength:
     - describe
   Exclude:
     - Guardfile
+    - db/schema.rb
 Metrics/LineLength:
   Exclude:
     - 'config/**/*'
@@ -32,13 +33,16 @@ RSpec/MessageExpectation: { EnforcedStyle: expect }
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - attr_reader
+    - belongs_to
     - context
     - default
+    - delegate
     - describe
     - exec
     - exit
     - fit
     - gem
+    - has_many
     - helper_method
     - include
     - it
@@ -53,6 +57,7 @@ Style/MethodCallWithArgsParentheses:
     - require_relative
     - ruby
     - source
+    - store_accessor
     - to
     - validates
     - warn
@@ -67,11 +72,13 @@ Style/MethodCallWithArgsParentheses:
     - Guardfile
     - Gemfile
 Style/MixinUsage: { Exclude: ['bin/**/*'] }
+Style/NumericLiterals: { Exclude: [db/schema.rb] }
 Style/StringLiterals: { EnforcedStyle: double_quotes }
 Style/SymbolArray: { EnforcedStyle: brackets }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
+Style/WordArray: { EnforcedStyle: brackets }
 
 ################################################################################
 #
