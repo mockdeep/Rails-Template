@@ -314,7 +314,6 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
-    vcr (5.0.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -377,7 +376,6 @@ DEPENDENCIES
   spring-watcher-listen
   strong_migrations
   turbolinks
-  vcr
   web-console
   webdrivers
   webmock

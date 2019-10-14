@@ -52,7 +52,6 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "simplecov", require: false
-  gem "vcr", require: false
   gem "webdrivers"
   gem "webmock", require: false
 end

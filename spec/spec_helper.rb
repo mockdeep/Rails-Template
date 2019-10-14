@@ -7,7 +7,7 @@ if ENV["COVERAGE"]
 end
 
 require "pry-byebug"
-require_relative "./support/vcr"
+require "webmock/rspec"
 
 def rails_require(path)
   require_relative "../#{path}"
