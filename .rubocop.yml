@@ -30,10 +30,14 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/system/**/*.rb
 RSpec/MessageExpectation: { EnforcedStyle: expect }
+Style/CommentedKeyword: { Enabled: false }
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - attr_accessor
     - attr_reader
+    - attr_writer
     - belongs_to
+    - cattr_accessor
     - context
     - default
     - delegate
@@ -74,6 +78,7 @@ Style/MethodCallWithArgsParentheses:
 Style/MixinUsage: { Exclude: ['bin/**/*'] }
 Style/NumericLiterals: { Exclude: [db/schema.rb] }
 Style/StringLiterals: { EnforcedStyle: double_quotes }
+Style/StringLiteralsInInterpolation: { EnforcedStyle: double_quotes }
 Style/SymbolArray: { EnforcedStyle: brackets }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
