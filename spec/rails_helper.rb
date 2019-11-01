@@ -10,7 +10,9 @@ end
 
 require "rspec/rails"
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+require_relative "support/capybara"
+require_relative "support/mocks"
+require_relative "support/shoulda_matchers"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

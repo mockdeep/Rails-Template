@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+Dir[File.join(__dir__, "./matchers/*.rb")].each { |path| require path }
+
 def have_error(expected_message)
   Matchers::HaveError.new(expected_message)
 end

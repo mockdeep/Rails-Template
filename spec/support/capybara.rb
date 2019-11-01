@@ -3,6 +3,8 @@
 require "capybara/rails"
 require "capybara-screenshot/rspec"
 
+require_relative "capybara/rack_test"
+
 Capybara.server = :puma, { Silent: true }
 Capybara.drivers[:chrome] = Capybara.drivers[:selenium_chrome]
 Capybara.drivers[:firefox] = Capybara.drivers[:selenium]
