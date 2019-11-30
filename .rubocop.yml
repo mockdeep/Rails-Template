@@ -14,6 +14,8 @@ AllCops:
 #
 ################################################################################
 
+# https://github.com/sds/haml-lint/issues/315
+Layout/TrailingEmptyLines: { Enabled: false }
 Metrics/BlockLength:
   ExcludedMethods:
     - describe
