@@ -15,6 +15,12 @@ AllCops:
 ################################################################################
 
 # https://github.com/sds/haml-lint/issues/315
+Layout/LineLength:
+  Exclude:
+    - 'config/**/*'
+    - 'db/schema.rb'
+    - 'app/views/**/*' # https://github.com/sds/haml-lint/pull/319
+  AutoCorrect: true
 Layout/TrailingEmptyLines: { Enabled: false }
 Metrics/BlockLength:
   ExcludedMethods:
@@ -22,11 +28,6 @@ Metrics/BlockLength:
   Exclude:
     - Guardfile
     - db/schema.rb
-Metrics/LineLength:
-  Exclude:
-    - 'config/**/*'
-    - 'db/schema.rb'
-  AutoCorrect: true
 Rails/FilePath: { EnforcedStyle: slashes }
 RSpec/MultipleExpectations:
   Exclude:
