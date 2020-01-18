@@ -93,7 +93,7 @@ GEM
     erubis (2.7.0)
     faker (2.10.0)
       i18n (>= 1.6, < 1.8)
-    ffi (1.11.3)
+    ffi (1.12.1)
     formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
