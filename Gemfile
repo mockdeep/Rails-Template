@@ -12,7 +12,7 @@ gem "bootsnap", require: false
 gem "haml-rails"
 gem "pg"
 # https://github.com/deivid-rodriguez/pry-byebug/issues/287
-gem "pry", "~> 0.12.2"
+gem "pry", "~> 0.13.0"
 gem "pry-rails"
 gem "puma"
 gem "sass-rails"
