@@ -16,12 +16,9 @@ AllCops:
 #
 ################################################################################
 
-# https://github.com/sds/haml-lint/issues/315
+# https://github.com/rubocop-hq/rubocop/issues/7841
+Style/TrailingCommaInBlockArgs: { Enabled: false }
 Layout/LineLength:
-  Exclude:
-    - 'config/**/*'
-    - 'db/schema.rb'
-    - 'app/views/**/*' # https://github.com/sds/haml-lint/pull/319
   AutoCorrect: true
 Layout/TrailingEmptyLines: { Enabled: false }
 Metrics/BlockLength:
