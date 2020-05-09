@@ -6,7 +6,7 @@
   },
   "version": "0.1.0",
   "dependencies": {
-    "@rails/actioncable": "^6.0.1",
+    "@rails/actioncable": "^6.0.3",
     "@rails/activestorage": "^6.0.1",
     "@rails/ujs": "^6.0.1",
     "@rails/webpacker": "^5.0.1",
