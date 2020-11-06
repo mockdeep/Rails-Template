@@ -27,18 +27,18 @@ module Matchers
     end
 
     def failure_message
-      if !exists_before?
-        did_not_exist_before_message
-      else # was not deleted
+      if exists_before? # was not deleted
         existed_after_message
+      else
+        did_not_exist_before_message
       end
     end
 
     def failure_message_when_negated
-      if !exists_before?
-        did_not_exist_before_message
-      else # was deleted
+      if exists_before? # was deleted
         did_not_exist_after_message
+      else
+        did_not_exist_before_message
       end
     end
 

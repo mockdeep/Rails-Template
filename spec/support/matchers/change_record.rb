@@ -60,10 +60,10 @@ module Matchers
     end
 
     def failure_message_when_negated
-      if !original_value_matches?
-        original_value_does_not_match_message
-      else # record changed
+      if original_value_matches? # record changed
         value_changed_message
+      else
+        original_value_does_not_match_message
       end
     end
 
