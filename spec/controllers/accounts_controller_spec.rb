@@ -3,17 +3,21 @@
 require "rails_helper"
 
 RSpec.describe AccountsController, type: :controller do
-  valid_create_params = { user: {
-    email: "demo@exampoo.com",
-    password: "super-secure",
-    password_confirmation: "super-secure",
-  } }
+  valid_create_params = {
+    user: {
+      email: "demo@exampoo.com",
+      password: "super-secure",
+      password_confirmation: "super-secure",
+    },
+  }
 
-  invalid_create_params = { user: {
-    email: "demo#exampoo.com",
-    password: "super-secure",
-    password_confirmation: "not-super-insecure",
-  } }
+  invalid_create_params = {
+    user: {
+      email: "demo#exampoo.com",
+      password: "super-secure",
+      password_confirmation: "not-super-insecure",
+    },
+  }
 
   describe "#new" do
     it "renders a new form" do

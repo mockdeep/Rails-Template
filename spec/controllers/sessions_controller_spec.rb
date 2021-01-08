@@ -11,10 +11,12 @@ RSpec.describe SessionsController, type: :controller do
 
   valid_create_params = { session: user_params.slice(:email, :password) }
 
-  invalid_create_params = { session: {
-    email: "wrong@email",
-    password: "wrong password",
-  } }
+  invalid_create_params = {
+    session: {
+      email: "wrong@email",
+      password: "wrong password",
+    },
+  }
 
   describe "#new" do
     it "renders a new form" do
