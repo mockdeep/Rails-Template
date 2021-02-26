@@ -13,7 +13,7 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "stylelint": "^13.10.0",
+    "stylelint": "^13.11.0",
     "stylelint-config-standard": "^20.0.0",
     "webpack-dev-server": "^3.11.2"
   },
