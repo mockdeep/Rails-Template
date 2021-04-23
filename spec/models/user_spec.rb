@@ -21,9 +21,7 @@ RSpec.describe User, type: :model do
   end
 
   it "does not allow bad emails" do
-    bad_emails = [
-      "b#b.com", "mrspicy>extra@yepyep.com", "blahbloo"
-    ]
+    bad_emails = ["b#b.com", "mrspicy>extra@yepyep.com", "blahbloo"]
 
     expect(described_class.new).not_to allow_values(bad_emails).for(:email)
   end

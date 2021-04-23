@@ -168,8 +168,7 @@ RSpec.describe AccountsController, type: :controller do
       it "does not destroy the user" do
         user = User.create!(valid_create_params[:user])
 
-        expect { delete(:destroy) }
-          .to not_delete_record(user)
+        expect { delete(:destroy) }.to not_delete_record(user)
       end
     end
 
