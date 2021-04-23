@@ -18,7 +18,7 @@ AllCops:
 
 # https://github.com/rubocop-hq/rubocop/issues/7841
 Style/TrailingCommaInBlockArgs: { Enabled: false }
-Layout/LineLength: { AutoCorrect: true }
+Layout/LineLength: { Max: 80, AutoCorrect: true }
 Layout/TrailingEmptyLines: { Enabled: false }
 Metrics/BlockLength:
   IgnoredMethods:
