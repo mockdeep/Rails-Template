@@ -12,9 +12,14 @@
     "@rails/webpacker": "^5.4.3",
     "turbolinks": "^5.2.0"
   },
+  "//": [
+    "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
+  ],
   "devDependencies": {
-    "stylelint": "^13.13.1",
+    "postcss": "^8.3.11",
+    "stylelint": "^14.0.0",
     "stylelint-config-standard": "^22.0.0",
+    "stylelint-config-standard-scss": "^2.0.0",
     "webpack-dev-server": "^4.3.1"
   },
   "scripts": {
