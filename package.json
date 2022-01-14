@@ -6,9 +6,9 @@
   },
   "version": "0.1.0",
   "dependencies": {
-    "@rails/actioncable": "^7.0.0",
-    "@rails/activestorage": "^7.0.0",
-    "@rails/ujs": "^7.0.0",
+    "@rails/actioncable": "^7.0.1",
+    "@rails/activestorage": "^7.0.1",
+    "@rails/ujs": "^7.0.1",
     "@rails/webpacker": "^5.4.3",
     "turbolinks": "^5.2.0"
   },
@@ -19,7 +19,7 @@
     "postcss": "^8.4.5",
     "stylelint": "^14.2.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "webpack-dev-server": "^4.7.2"
+    "webpack-dev-server": "^4.7.3"
   },
   "scripts": {
     "stylelint": "./node_modules/stylelint/bin/stylelint.js 'app/assets/stylesheets/**/*'"
