@@ -41,10 +41,6 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
 
-      - run:
-          name: Bundler Audit
-          command: bundle exec bundle audit
-
       - save_cache:
           key: bundle-v1-{{ checksum "Gemfile.lock" }}
           paths:
