@@ -16,8 +16,8 @@
     "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
   ],
   "devDependencies": {
-    "postcss": "^8.4.13",
-    "stylelint": "^14.8.2",
+    "postcss": "^8.4.14",
+    "stylelint": "^14.8.5",
     "stylelint-config-standard-scss": "^3.0.0",
     "webpack-dev-server": "^4.9.0"
   },
