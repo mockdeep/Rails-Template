@@ -19,7 +19,7 @@
     "postcss": "^8.4.14",
     "stylelint": "^14.8.5",
     "stylelint-config-standard-scss": "^4.0.0",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^4.9.2"
   },
   "scripts": {
     "stylelint": "./node_modules/stylelint/bin/stylelint.js 'app/assets/stylesheets/**/*'"
