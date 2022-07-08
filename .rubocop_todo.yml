@@ -140,10 +140,5 @@ Style/RedundantFetchBlock:
     - 'config/puma.rb'
 
 # Offense count: 10
-Style/TopLevelMethodDefinition:
-  Exclude:
-    - 'bin/setup'
-    - 'bin/update'
-    - 'spec/spec_helper.rb'
-    - 'spec/support/matchers.rb'
-    - 'spec/support/mocks.rb'
+# https://github.com/rubocop/rubocop/issues/10799
+Style/TopLevelMethodDefinition: { Enabled: false }
