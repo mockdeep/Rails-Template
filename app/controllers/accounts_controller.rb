@@ -5,6 +5,10 @@ require_relative "application_controller"
 class AccountsController < ApplicationController
   skip_before_action(:authenticate_user, only: [:new, :create])
 
+  def show
+    render(locals: { user: current_user })
+  end
+
   def new
     render(locals: { user: User.new })
   end
@@ -19,10 +23,6 @@ class AccountsController < ApplicationController
       flash.now[:error] = "There was a problem setting up your account"
       render(:new, locals: { user: user })
     end
-  end
-
-  def show
-    render(locals: { user: current_user })
   end
 
   def update
