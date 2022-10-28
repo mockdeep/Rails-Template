@@ -24,7 +24,7 @@ Layout/LineLength:
   Exclude: ['config/**/*']
 Layout/TrailingEmptyLines: { Enabled: false }
 Metrics/BlockLength:
-  IgnoredMethods:
+  AllowedMethods:
     - describe
   Exclude:
     - Guardfile
@@ -36,7 +36,7 @@ RSpec/MultipleExpectations:
 RSpec/MessageExpectation: { EnforcedStyle: expect }
 Style/CommentedKeyword: { Enabled: false }
 Style/MethodCallWithArgsParentheses:
-  IgnoredMethods:
+  AllowedMethods:
     - attr_accessor
     - attr_reader
     - attr_writer
