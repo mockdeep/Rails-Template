@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   browser-tools: circleci/browser-tools@1.2.3
+  node: circleci/node@5.0.3
 
 jobs:
   build:
@@ -12,6 +13,7 @@ jobs:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
+          NODE_VERSION: 16.18.1
           PGHOST: 127.0.0.1
           PGUSER: postgres
           RAILS_ENV: test
@@ -25,11 +27,23 @@ jobs:
 
     steps:
       - checkout
+
+      - node/install:
+          node-version: 16.18.1
+          install-yarn: true
+          yarn-version: 1.22.16
+
+      - node/install-packages:
+          pkg-manager: yarn
+
       - browser-tools/install-browser-tools
 
       - run:
-          name: Which bundler?
-          command: bundle -v
+          name: Which versions?
+          command: |
+            bundle -v
+            node --version
+            yarn --version
 
       # https://circleci.com/docs/2.0/caching/
       - restore_cache:
