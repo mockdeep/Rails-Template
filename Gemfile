@@ -12,7 +12,7 @@ gem "bootsnap", require: false
 gem "haml-rails"
 gem "pg"
 gem "pry-rails"
-gem "puma", "~> 5.6"
+gem "puma", "~> 6.0"
 gem "sass-rails"
 gem "sidekiq"
 gem "strong_migrations"
