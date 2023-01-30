@@ -96,7 +96,7 @@ Lint/ConstantResolution:
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: have_no, not_to
-RSpec/Capybara/NegationMatcher:
+Capybara/NegationMatcher:
   Exclude:
     - 'spec/system/account_spec.rb'
     - 'spec/system/sessions_spec.rb'
