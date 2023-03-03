@@ -27,5 +27,5 @@ def mock_methods(fake_record, method_overrides)
 end
 
 def expected_from
-  caller.find { |line| !line.include?(__FILE__) }
+  caller.find { |line| line.exclude?(__FILE__) }
 end
