@@ -17,11 +17,11 @@
   ],
   "devDependencies": {
     "postcss": "^8.4.24",
-    "stylelint": "^15.7.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard-scss": "^10.0.0",
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
-    "stylelint": "./node_modules/stylelint/bin/stylelint.js 'app/assets/stylesheets/**/*'"
+    "stylelint": "./node_modules/stylelint/bin/stylelint.mjs 'app/assets/stylesheets/**/*'"
   }
 }
