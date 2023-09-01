@@ -36,7 +36,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
 
-      - browser-tools/install-browser-tools
+      - browser-tools/install-browser-tools:
+          install-chrome: false
+          install-chromedriver: false
 
       - run:
           name: Which versions?
