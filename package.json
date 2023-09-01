@@ -17,7 +17,7 @@
   ],
   "devDependencies": {
     "postcss": "^8.4.28",
-    "stylelint": "^15.10.2",
+    "stylelint": "^15.10.3",
     "stylelint-config-standard-scss": "^10.0.0",
     "webpack-dev-server": "^4.15.1"
   },
