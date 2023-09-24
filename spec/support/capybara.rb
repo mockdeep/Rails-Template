@@ -17,7 +17,7 @@ RSpec.configure do |config|
     driven_by(driver || :rack_test)
   end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, :js, type: :system) do
     driven_by(driver || :selenium_headless)
   end
 end

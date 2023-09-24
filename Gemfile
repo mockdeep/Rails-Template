@@ -39,7 +39,7 @@ group :development do
   gem "listen"
   gem "rubocop"
   gem "rubocop-rails"
-  gem "rubocop-rspec", "~> 2.23.2", require: false # https://github.com/rubocop/rubocop-rspec/issues/1717
+  gem "rubocop-rspec"
   gem "spring"
   gem "spring-commands-rspec"
   gem "spring-watcher-listen"
