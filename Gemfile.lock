@@ -188,7 +188,7 @@ GEM
     msgpack (1.7.2)
     mutex_m (0.2.0)
     nenv (0.3.0)
-    net-imap (0.4.6)
+    net-imap (0.4.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -197,7 +197,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.6.1)
+    nio4r (2.7.0)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -272,7 +272,7 @@ GEM
     redis-client (0.18.0)
       connection_pool
     regexp_parser (2.8.2)
-    reline (0.4.0)
+    reline (0.4.1)
       io-console (~> 0.5)
     rexml (3.2.6)
     rspec (3.12.0)
@@ -367,7 +367,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stringio (3.0.9)
+    stringio (3.1.0)
     strong_migrations (1.6.4)
       activerecord (>= 5.2)
     sysexits (1.2.0)
