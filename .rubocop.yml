@@ -35,6 +35,7 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/system/**/*.rb
 RSpec/MessageExpectation: { EnforcedStyle: expect }
+Style/ArrayFirstLast: { Exclude: [Guardfile] }
 Style/CommentedKeyword: { Enabled: false }
 Style/MethodCallWithArgsParentheses:
   AllowedMethods:
