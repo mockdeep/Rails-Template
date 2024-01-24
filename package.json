@@ -2,7 +2,7 @@
   "name": "YourAppNameHere",
   "private": true,
   "engines": {
-    "node": "16.20.2"
+    "node": "21.6.1"
   },
   "version": "0.1.0",
   "dependencies": {
