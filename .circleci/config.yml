@@ -29,7 +29,7 @@ jobs:
       - checkout
 
       - node/install:
-          node-version: 16.20.2
+          node-version: 22.2.0
           install-yarn: true
           yarn-version: 1.22.16
 
