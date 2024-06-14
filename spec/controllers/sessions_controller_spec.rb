@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SessionsController, type: :controller do
+RSpec.describe SessionsController do
   user_params = {
     email: "demo@exampoo.com",
     password: "super-secure",

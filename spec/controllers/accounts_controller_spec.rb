@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AccountsController, type: :controller do
+RSpec.describe AccountsController do
   valid_create_params = {
     user: {
       email: "demo@exampoo.com",

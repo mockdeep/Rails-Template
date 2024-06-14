@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   user_params = {
     email: "demo@exampoo.com",
     password: "super-secure",
