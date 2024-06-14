@@ -2,8 +2,10 @@ inherit_from: .rubocop_todo.yml
 
 require:
   - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   DefaultFormatter: fuubar

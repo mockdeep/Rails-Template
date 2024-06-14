@@ -37,9 +37,12 @@ group :development do
   gem "guard-rubocop", require: false
   gem "haml_lint", require: false
   gem "listen"
-  gem "rubocop"
-  gem "rubocop-rails"
-  gem "rubocop-rspec"
+  gem "rubocop", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-factory_bot", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubocop-rspec_rails", require: false
   gem "spring"
   gem "spring-commands-rspec"
   gem "spring-watcher-listen"
