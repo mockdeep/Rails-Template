@@ -6,8 +6,8 @@
   },
   "version": "0.1.0",
   "dependencies": {
-    "@rails/actioncable": "^7.2.0",
-    "@rails/activestorage": "^7.2.0",
+    "@rails/actioncable": "^7.2.100",
+    "@rails/activestorage": "^7.2.100",
     "@rails/ujs": "^7.1.400",
     "@rails/webpacker": "^5.4.4",
     "turbolinks": "^5.2.0"
@@ -16,7 +16,7 @@
     "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
   ],
   "devDependencies": {
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.45",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
     "webpack-dev-server": "^4.15.2"
