@@ -10,13 +10,13 @@ gem "rails", "~> 8.0.0"
 gem "bcrypt"
 gem "bootsnap", require: false
 gem "haml-rails"
+gem "jsbundling-rails"
 gem "pg"
 gem "pry-rails"
 gem "puma", "~> 6.0"
 gem "sass-rails"
 gem "strong_migrations"
 gem "turbolinks"
-gem "webpacker"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
