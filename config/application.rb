@@ -21,9 +21,6 @@ module YourAppNameHere
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.active_job.queue_adapter     = :sidekiq
-    config.active_job.queue_name_prefix = "yourappnamehere_#{Rails.env}"
-
     config.active_record.belongs_to_required_by_default = false
     config.action_view.form_with_generates_remote_forms = false
 
