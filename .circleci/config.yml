@@ -10,8 +10,6 @@ jobs:
     docker:
       - image: cimg/ruby:3.4.4-browsers
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           NODE_VERSION: 16.18.1
           PGHOST: 127.0.0.1
@@ -53,7 +51,10 @@ jobs:
 
       - run: # Install Ruby dependencies
           name: Bundle Install
-          command: bundle check || bundle install
+          command: |
+            bundle config set --local frozen 'true'
+            bundle install
+            bundle clean
 
       - save_cache:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -67,7 +68,7 @@ jobs:
 
       - run:
           name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
 
       # - run:
       #     name: Yarn Audit
