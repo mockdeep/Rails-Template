@@ -62,8 +62,6 @@ Lint/ConstantResolution:
     - 'bin/setup'
     - 'bin/spring'
     - 'bin/update'
-    - 'bin/webpack'
-    - 'bin/webpack-dev-server'
     - 'bin/yarn'
     - 'config.ru'
     - 'config/application.rb'
