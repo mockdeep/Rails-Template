@@ -88,6 +88,10 @@ jobs:
           command: bin/rails db:setup --trace
 
       - run:
+          name: Typescript
+          command: yarn tscheck
+
+      - run:
           name: Brakeman
           command: bundle exec brakeman
 
