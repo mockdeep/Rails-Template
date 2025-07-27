@@ -15,16 +15,25 @@
     "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
   ],
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/rails__actioncable": "^6.1.11",
     "esbuild": "^0.25.6",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "jest-junit": "^16.0.0",
+    "jest-util": "^30.0.5",
     "postcss": "^8.5.6",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "jest": "./node_modules/jest/bin/jest.js --coverage --config config/jest.json",
+    "pretest": "yarn tscheck",
     "stylelint": "./node_modules/stylelint/bin/stylelint.mjs 'app/assets/stylesheets/**/*'",
+    "test": "yarn jest",
     "tscheck": "yarn tsc --noEmit"
   }
 }
