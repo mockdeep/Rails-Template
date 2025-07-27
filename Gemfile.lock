@@ -122,6 +122,9 @@ GEM
     formatador (1.1.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    goldiloader (5.4.0)
+      activerecord (>= 6.1, < 8.1)
+      activesupport (>= 6.1, < 8.1)
     guard (2.19.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -436,6 +439,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   faker
+  goldiloader
   guard
   guard-haml_lint
   guard-rspec
