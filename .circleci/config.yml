@@ -92,6 +92,10 @@ jobs:
           command: yarn tscheck
 
       - run:
+          name: Jest
+          command: yarn jest --ci
+
+      - run:
           name: Brakeman
           command: bundle exec brakeman
 
