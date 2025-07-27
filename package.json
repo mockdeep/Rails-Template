@@ -15,13 +15,16 @@
     "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
   ],
   "devDependencies": {
+    "@types/rails__actioncable": "^6.1.11",
     "esbuild": "^0.25.6",
     "postcss": "^8.5.6",
     "stylelint": "^15.11.0",
-    "stylelint-config-standard-scss": "^11.1.0"
+    "stylelint-config-standard-scss": "^11.1.0",
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
-    "stylelint": "./node_modules/stylelint/bin/stylelint.mjs 'app/assets/stylesheets/**/*'"
+    "stylelint": "./node_modules/stylelint/bin/stylelint.mjs 'app/assets/stylesheets/**/*'",
+    "tscheck": "yarn tsc --noEmit"
   }
 }
