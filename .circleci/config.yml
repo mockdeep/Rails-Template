@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.5.1
+  browser-tools: circleci/browser-tools@2.2.0
   node: circleci/node@7.1.0
 
 jobs:
@@ -26,15 +26,11 @@ jobs:
 
       - node/install:
           node-version: 22.17.1
-          install-yarn: true
-          yarn-version: 1.22.16
 
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: yarn-berry
 
-      - browser-tools/install-browser-tools:
-          install-chrome: false
-          install-chromedriver: false
+      - browser-tools/install_firefox
 
       - run:
           name: Which versions?
@@ -60,24 +56,6 @@ jobs:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
-      - restore_cache:
-          keys:
-            - yarn-v1-{{ checksum "yarn.lock" }}
-            - yarn-v1-
-
-      - run:
-          name: Yarn Install
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-
-      # - run:
-      #     name: Yarn Audit
-      #     command: yarn audit
-
-      - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
 
       - run:
           name: Wait for DB
