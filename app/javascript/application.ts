@@ -2,4 +2,5 @@
 import "@rails/ujs"
 import "turbolinks"
 import "@rails/activestorage"
-import "./channels"
+
+import "woops"
