@@ -29,6 +29,7 @@ spec/examples.txt
 /public/packs-test
 /node_modules
 /yarn-error.log
+.yarn/
 yarn-debug.log*
 .yarn-integrity
 /app/assets/builds/*
