@@ -7,9 +7,9 @@
   "packageManager": "yarn@4.9.2",
   "version": "0.1.0",
   "dependencies": {
-    "@rails/actioncable": "^8.0.200",
-    "@rails/activestorage": "^8.0.200",
-    "@rails/ujs": "^7.1.501",
+    "@rails/actioncable": "^8.0.201",
+    "@rails/activestorage": "^8.0.201",
+    "@rails/ujs": "^7.1.502",
     "turbolinks": "^5.2.0"
   },
   "//": [
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/rails__actioncable": "^6.1.11",
-    "esbuild": "^0.25.6",
+    "esbuild": "^0.25.9",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "jest-junit": "^16.0.0",
