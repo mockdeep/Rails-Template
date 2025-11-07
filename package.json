@@ -7,9 +7,9 @@
   "packageManager": "yarn@4.9.2",
   "version": "0.1.0",
   "dependencies": {
-    "@rails/actioncable": "^8.0.300",
-    "@rails/activestorage": "^8.0.300",
-    "@rails/ujs": "^7.1.502",
+    "@rails/actioncable": "^8.1.100",
+    "@rails/activestorage": "^8.1.100",
+    "@rails/ujs": "^7.1.600",
     "turbolinks": "^5.2.0"
   },
   "//": [
