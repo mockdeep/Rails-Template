@@ -3,21 +3,25 @@
 require "rails_helper"
 
 RSpec.describe AccountsController do
-  valid_create_params = {
-    user: {
-      email: "demo@exampoo.com",
-      password: "super-secure",
-      password_confirmation: "super-secure",
-    },
-  }
+  def valid_create_params
+    {
+      user: {
+        email: "demo@exampoo.com",
+        password: "super-secure",
+        password_confirmation: "super-secure",
+      },
+    }
+  end
 
-  invalid_create_params = {
-    user: {
-      email: "demo#exampoo.com",
-      password: "super-secure",
-      password_confirmation: "not-super-insecure",
-    },
-  }
+  def invalid_create_params
+    {
+      user: {
+        email: "demo#exampoo.com",
+        password: "super-secure",
+        password_confirmation: "not-super-insecure",
+      },
+    }
+  end
 
   describe "#new" do
     it "renders a new form" do
@@ -81,8 +85,8 @@ RSpec.describe AccountsController do
   end
 
   describe "#update" do
-    valid_update_params = { user: { email: "new@email.com" } }
-    invalid_update_params = { user: { email: "new#email.com" } }
+    def valid_update_params = { user: { email: "new@email.com" } }
+    def invalid_update_params = { user: { email: "new#email.com" } }
 
     context "when the user is not logged in" do
       it "redirects to log in page" do
