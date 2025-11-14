@@ -3,11 +3,13 @@
 require "rails_helper"
 
 RSpec.describe User do
-  user_params = {
-    email: "demo@exampoo.com",
-    password: "super-secure",
-    password_confirmation: "super-secure",
-  }
+  def user_params
+    {
+      email: "demo@exampoo.com",
+      password: "super-secure",
+      password_confirmation: "super-secure",
+    }
+  end
 
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to have_secure_password }
