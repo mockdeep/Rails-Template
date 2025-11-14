@@ -1300,10 +1300,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/rails__actioncable@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@types/rails__actioncable@npm:8.0.0"
-  checksum: 10c0/a91baf44bef619732c026aa8bb0d8e562f21856d440a89fe4ca4aa32022d8d330bd8ab74cceeabea009c4c26174609cf2c1b443b2e7e0e11f52405b215e7ec2c
+"@types/rails__actioncable@npm:^8.0.3":
+  version: 8.0.3
+  resolution: "@types/rails__actioncable@npm:8.0.3"
+  checksum: 10c0/088ed3180b4b7544c246f654d52ab9b8d27f35f0c015e959f1d702eb3703276339f9646fb2f0b752debf33218affb826dd2cae5ebe48e92b994e68ec03eecdc1
   languageName: node
   linkType: hard
 
@@ -1487,7 +1487,7 @@ __metadata:
     "@rails/activestorage": "npm:^8.1.100"
     "@rails/ujs": "npm:^7.1.600"
     "@types/jest": "npm:^30.0.0"
-    "@types/rails__actioncable": "npm:^8.0.0"
+    "@types/rails__actioncable": "npm:^8.0.3"
     esbuild: "npm:^0.25.11"
     jest: "npm:^30.2.0"
     jest-environment-jsdom: "npm:^30.2.0"
