@@ -70,6 +70,10 @@ jobs:
           command: yarn tscheck
 
       - run:
+          name: ESLint
+          command: yarn eslint
+
+      - run:
           name: Jest
           command: yarn jest --ci
 

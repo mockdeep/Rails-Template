@@ -3,7 +3,7 @@
     "incremental": true,
     "target": "es2016",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "channels/*": ["./app/javascript/channels/*"],
       "controllers/*": ["./app/javascript/controllers/*"]
