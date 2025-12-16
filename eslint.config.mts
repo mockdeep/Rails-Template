@@ -1,0 +1,80 @@
+import globals from "globals";
+import importPlugin from "eslint-plugin-import";
+import jest from "eslint-plugin-jest";
+import js from "@eslint/js";
+import stylistic from "@stylistic/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import tseslint from "typescript-eslint";
+import {defineConfig} from "eslint/config";
+import sortKeysFix from "eslint-plugin-sort-keys-fix";
+import eslintTodo from "./.eslint_todo";
+
+export default defineConfig([
+  js.configs.all,
+  tseslint.configs.all,
+  importPlugin.flatConfigs.recommended,
+  jest.configs["flat/all"],
+  stylistic.configs.all,
+  {
+    ignores: [
+      ".eslint_todo.ts",
+      "app/assets/builds/**",
+      "app/assets/config/manifest.js",
+      "babel.config.js",
+      "coverage/**",
+      "postcss.config.js",
+      "public/**",
+      "vendor/**",
+    ],
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    languageOptions: {
+      globals: globals.browser,
+      parser: tsParser,
+      parserOptions: {
+        projectService: true,
+      },
+    },
+    plugins: {
+      importPlugin,
+      jest,
+      js,
+      "sort-keys-fix": sortKeysFix,
+      stylistic,
+    },
+    rules: {
+      "@stylistic/array-element-newline": ["error", "consistent"],
+      "@stylistic/comma-dangle": ["error", "always-multiline"],
+      "@stylistic/function-call-argument-newline": ["error", "consistent"],
+      "@stylistic/indent": ["error", 2],
+      "@stylistic/object-property-newline": ["error", {allowAllPropertiesOnSameLine: true}],
+      "@stylistic/padded-blocks": ["error", "never"],
+      "@stylistic/quote-props": ["error", "as-needed", {keywords: true}],
+      "@typescript-eslint/naming-convention": "off",
+      "@typescript-eslint/no-magic-numbers": "off",
+      "jest/consistent-test-it": ["error", {fn: "it", withinDescribe: "it"}],
+      "jest/prefer-expect-assertions": "off",
+      "jest/require-top-level-describe": "off",
+      "no-magic-numbers": "off",
+      "sort-imports": ["error", {ignoreCase: true, ignoreDeclarationSort: true}],
+      "sort-keys": ["error", "asc", {caseSensitive: false, natural: true}],
+      "sort-keys-fix/sort-keys-fix": ["error", "asc", {caseSensitive: false, natural: true}],
+    },
+    settings: {
+      "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,
+        },
+      },
+    },
+  },
+  {
+    files: ["spec/javascript/test_helper.ts"],
+    rules: {
+      "jest/no-hooks": "off",
+      "jest/no-standalone-expect": "off",
+    },
+  },
+  ...eslintTodo,
+]);

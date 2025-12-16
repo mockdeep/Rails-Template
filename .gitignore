@@ -36,3 +36,4 @@ yarn-debug.log*
 !/app/assets/builds/.keep
 .sass-cache
 tsconfig.tsbuildinfo
+.eslintcache
