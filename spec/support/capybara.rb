@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "capybara/rails"
-require "capybara-screenshot/rspec"
 
 require_relative "capybara/rack_test"
 
