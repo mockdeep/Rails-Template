@@ -12,9 +12,6 @@
     "@rails/ujs": "^7.1.600",
     "turbolinks": "^5.2.0"
   },
-  "//": [
-    "postcss is a dep of stylelint-config-standard-scss, can probably be removed later"
-  ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
@@ -38,9 +35,8 @@
     "jest-junit": "^16.0.0",
     "jest-util": "^30.0.5",
     "jiti": "^2.6.1",
-    "postcss": "^8.5.6",
-    "stylelint": "^15.11.0",
-    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0"
