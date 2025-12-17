@@ -22,7 +22,6 @@ export default defineConfig([
       "app/assets/config/manifest.js",
       "babel.config.js",
       "coverage/**",
-      "postcss.config.js",
       "public/**",
       "vendor/**",
     ],
@@ -33,7 +32,9 @@ export default defineConfig([
       globals: globals.browser,
       parser: tsParser,
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ["stylelint.config.mjs"],
+        },
       },
     },
     plugins: {
