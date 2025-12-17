@@ -6,8 +6,6 @@ if ENV["COVERAGE"]
   SimpleCov.minimum_coverage(100)
 end
 
-require "pry-byebug"
-
 require_relative "support/webmock"
 require_relative "support/matchers"
 
