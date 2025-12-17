@@ -70,6 +70,10 @@ jobs:
           command: yarn tscheck
 
       - run:
+          name: Find Unused ESLint Rules
+          command: yarn eslint_find_unused_rules
+
+      - run:
           name: ESLint
           command: yarn eslint
 
