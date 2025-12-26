@@ -37,7 +37,7 @@
     "stylelint-config-standard": "^39.0.1",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.50.0"
+    "typescript-eslint": "^8.50.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
