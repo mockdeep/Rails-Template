@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require_relative "support/coverage"
+
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../config/environment", __dir__)
 
@@ -12,8 +13,10 @@ require "rspec/rails"
 
 require_relative "support/assets"
 require_relative "support/capybara"
+require_relative "support/matchers"
 require_relative "support/mocks"
 require_relative "support/shoulda_matchers"
+require_relative "support/webmock"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -32,4 +35,18 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.render_views
+
+  config.filter_run_when_matching(:focus)
+
+  config.example_status_persistence_file_path = "spec/examples.txt"
+
+  config.disable_monkey_patching!
+
+  config.default_formatter = "doc" if config.files_to_run.one?
+
+  config.profile_examples = 10
+
+  config.order = :random
+
+  Kernel.srand(config.seed)
 end

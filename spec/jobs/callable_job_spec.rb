@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-rails_require "app/jobs/callable_job"
-
 RSpec.describe CallableJob do
   describe "#perform" do
     it "constantizes and calls the given job class with 0 args" do
