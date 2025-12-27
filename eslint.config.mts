@@ -19,7 +19,6 @@ export default defineConfig([
     ignores: [
       ".eslint_todo.ts",
       "app/assets/builds/**",
-      "app/assets/config/manifest.js",
       "babel.config.js",
       "coverage/**",
       "public/**",
