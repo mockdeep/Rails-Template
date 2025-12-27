@@ -1,3 +1,6 @@
 export default {
-  "extends": ["stylelint-config-standard"],
+  "extends": [
+    "stylelint-config-standard",
+    "./.stylelint_todo.yml",
+  ],
 };
