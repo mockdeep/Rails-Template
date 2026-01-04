@@ -3,11 +3,13 @@
 require "factory_bot_rails"
 
 module FactoryCache
-  def self.user
+  extend self
+
+  def user
     @user ||= FactoryBot.create(:user)
   end
 
-  def self.reset
+  def reset
     @user = nil
   end
 end
