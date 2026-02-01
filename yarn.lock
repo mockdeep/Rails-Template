@@ -2798,7 +2798,7 @@ __metadata:
     jest-util: "npm:^30.0.5"
     jiti: "npm:^2.6.1"
     stylelint: "npm:^16.26.1"
-    stylelint-config-property-sort-order-smacss: "npm:^10.0.0"
+    stylelint-config-property-sort-order-smacss: "npm:^11.0.0"
     stylelint-config-standard: "npm:^40.0.0"
     stylelint-selector-bem-pattern: "npm:^4.0.1"
     ts-jest: "npm:^29.4.6"
@@ -3511,10 +3511,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-property-sort-order-smacss@npm:~2.2.0":
-  version: 2.2.0
-  resolution: "css-property-sort-order-smacss@npm:2.2.0"
-  checksum: 10c0/1bd79398787c9150cd36ebd41fc216c5682904609277ec5df6a0fb3ed456f0dedaab66953b9e6a8a4b01fe5ecf970fec849379904abec9bf0bb637eef5059c51
+"css-property-sort-order-smacss@npm:3.0.0":
+  version: 3.0.0
+  resolution: "css-property-sort-order-smacss@npm:3.0.0"
+  checksum: 10c0/169ede87ef272444fb7920704aeddf863816ba4ffb0a0896d17f38a2d1cea7b263eb2a7daab7acd28e669b7f30c8eae692ca75b14fb61c13818835b6d13823da
   languageName: node
   linkType: hard
 
@@ -6829,12 +6829,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-sorting@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "postcss-sorting@npm:8.0.2"
+"postcss-sorting@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "postcss-sorting@npm:9.1.0"
   peerDependencies:
     postcss: ^8.4.20
-  checksum: 10c0/955c72d8d71b6b54dcdcbcef765a593803512d215cef12a49b71d1abf8ab8d2dacb5645dbb5a0a6535609aab6bffb834599d6073f28fe61e589a4437af85e243
+  checksum: 10c0/1faea84bf00d85929228d297587798fa9c384a02966a28a942777b2de553a8186087cfdcd0aca3dd40e4b2793aee050792d807458db8cf4880867c98c7bf22fd
   languageName: node
   linkType: hard
 
@@ -6845,7 +6845,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.24, postcss@npm:^8.4.32, postcss@npm:^8.5.6":
+"postcss@npm:^8.4.24, postcss@npm:^8.5.6":
   version: 8.5.6
   resolution: "postcss@npm:8.5.6"
   dependencies:
@@ -7531,15 +7531,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-property-sort-order-smacss@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "stylelint-config-property-sort-order-smacss@npm:10.0.0"
+"stylelint-config-property-sort-order-smacss@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "stylelint-config-property-sort-order-smacss@npm:11.0.0"
   dependencies:
-    css-property-sort-order-smacss: "npm:~2.2.0"
-    stylelint-order: "npm:^6.0.4"
+    css-property-sort-order-smacss: "npm:3.0.0"
+    stylelint-order: "npm:^7.0.1"
   peerDependencies:
-    stylelint: ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: 10c0/eeedb0bf0d3bbdd1990f3d8e6746e73e0f3e52cb62ba2c45e705823b8fdf7cb427a76678d60ec0c8eadaf0230ede7a8dcf5db07f8fc95d7471feed34da419e97
+    stylelint: ^16.18.0 || ^17.0.0
+  checksum: 10c0/d44c142c81020e2b67efd7faba5efbbed3f35a4a8c07e3c6a5dfa9bf39715c3040f8c20724c2fe130c6b6f1809b60ed8afa6b78f608ef9c4c1ae9fded600334e
   languageName: node
   linkType: hard
 
@@ -7563,15 +7563,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-order@npm:^6.0.4":
-  version: 6.0.4
-  resolution: "stylelint-order@npm:6.0.4"
+"stylelint-order@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "stylelint-order@npm:7.0.1"
   dependencies:
-    postcss: "npm:^8.4.32"
-    postcss-sorting: "npm:^8.0.2"
+    postcss: "npm:^8.5.6"
+    postcss-sorting: "npm:^9.1.0"
   peerDependencies:
-    stylelint: ^14.0.0 || ^15.0.0 || ^16.0.1
-  checksum: 10c0/9a1f6ba7ab04855462bfae28fe36ad2a297fec56f42da2f588b57295b89b72e6f517d5e35ecbcefb11fcc373f3db40f0e6a8eefb41a4d267550ac6324f12a3ca
+    stylelint: ^16.18.0 || ^17.0.0
+  checksum: 10c0/dfe3ab8f18725c9c2fead65f2940a6590208591ca267da6d25ee191c6e5f1df04813a6f6a76791bfe5f6fda33fbf6d81369c17c71831bfbd6802dfed26559845
   languageName: node
   linkType: hard
 
