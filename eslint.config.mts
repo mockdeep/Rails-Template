@@ -3,7 +3,6 @@ import importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
 import tseslint from "typescript-eslint";
 import {defineConfig} from "eslint/config";
 import sortKeysFix from "eslint-plugin-sort-keys-fix";
@@ -29,7 +28,6 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: {
       globals: globals.browser,
-      parser: tsParser,
       parserOptions: {
         projectService: {
           allowDefaultProject: ["stylelint.config.mjs"],
@@ -39,9 +37,7 @@ export default defineConfig([
     plugins: {
       importPlugin,
       jest,
-      js,
       "sort-keys-fix": sortKeysFix,
-      stylistic,
     },
     rules: {
       "@stylistic/array-element-newline": ["error", "consistent"],
@@ -58,6 +54,8 @@ export default defineConfig([
         ["error", {anonymous: "always", named: "never"}],
       "@typescript-eslint/consistent-indexed-object-style":
         ["error", "index-signature"],
+      "@typescript-eslint/consistent-type-assertions":
+        ["error", {assertionStyle: "never"}],
       "@typescript-eslint/explicit-member-accessibility": "off",
       "@typescript-eslint/naming-convention": "off",
       "@typescript-eslint/no-magic-numbers": "off",
