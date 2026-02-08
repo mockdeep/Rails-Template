@@ -1,0 +1,128 @@
+name: Propagate to downstream repos
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  setup:
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.login != 'dependabot[bot]' &&
+      github.event.pull_request.user.login != 'depfu[bot]'
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.read-repos.outputs.repos }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: read-repos
+        run: |
+          REPOS=$(jq -c . .github/downstream_repos.json)
+          echo "repos=$REPOS" >> "$GITHUB_OUTPUT"
+
+  propagate:
+    needs: setup
+    if: needs.setup.outputs.repos != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: ${{ fromJson(needs.setup.outputs.repos) }}
+    steps:
+      - name: Cherry-pick and open PR
+        env:
+          GH_TOKEN: ${{ secrets.DOWNSTREAM_PAT }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          TEMPLATE_REPO: ${{ github.repository }}
+          DOWNSTREAM_REPO: ${{ matrix.repo }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -euo pipefail
+
+          BRANCH="template-update/${PR_NUMBER}"
+
+          # Clone the downstream repo
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${DOWNSTREAM_REPO}.git" downstream
+          cd downstream
+
+          # Skip if branch already exists (action re-run or duplicate)
+          if git ls-remote --heads origin "$BRANCH" | grep -q .; then
+            echo "Branch $BRANCH already exists on ${DOWNSTREAM_REPO}, skipping"
+            exit 0
+          fi
+
+          git config user.name "Template Bot"
+          git config user.email "template-bot@users.noreply.github.com"
+
+          # Fetch the template repo to get the merge commit
+          git remote add template "https://github.com/${TEMPLATE_REPO}.git"
+          git fetch template main --depth=5
+
+          git checkout -b "$BRANCH"
+
+          # Detect merge commit vs squash commit
+          PARENT_COUNT=$(git cat-file -p "$MERGE_SHA" | grep -c "^parent" || true)
+          CHERRY_ARGS=("-x" "--no-commit")
+          if [ "$PARENT_COUNT" -gt 1 ]; then
+            CHERRY_ARGS=("-m" "1" "${CHERRY_ARGS[@]}")
+          fi
+
+          # Attempt cherry-pick
+          HAS_CONFLICTS=false
+          if ! git cherry-pick "${CHERRY_ARGS[@]}" "$MERGE_SHA"; then
+            HAS_CONFLICTS=true
+          fi
+
+          # Stage everything (including conflict markers if any)
+          git add -A
+
+          # If there are no changes, skip this repo
+          if git diff --cached --quiet; then
+            echo "No applicable changes for ${DOWNSTREAM_REPO}, skipping"
+            exit 0
+          fi
+
+          # Clean up cherry-pick state so we can do a normal commit
+          rm -f .git/CHERRY_PICK_HEAD
+
+          # Build commit message
+          {
+            if [ "$HAS_CONFLICTS" = true ]; then
+              echo "Apply template update: ${PR_TITLE} (conflicts)"
+            else
+              echo "Apply template update: ${PR_TITLE}"
+            fi
+            echo ""
+            echo "Source: ${PR_URL}"
+            if [ "$HAS_CONFLICTS" = true ]; then
+              echo ""
+              echo "This cherry-pick had conflicts that need manual resolution."
+              echo 'Search for <<<<<<< in the changed files.'
+            fi
+          } > /tmp/commit-msg
+
+          git commit -F /tmp/commit-msg
+
+          # Push
+          git push origin "$BRANCH"
+
+          # Build PR body
+          {
+            echo "## Template Update"
+            echo ""
+            echo "Cherry-picked from ${PR_URL}"
+            if [ "$HAS_CONFLICTS" = true ]; then
+              echo ""
+              echo '> **This PR has conflicts that need manual resolution.** Search for `<<<<<<<` in the changed files.'
+            fi
+          } > /tmp/pr-body
+
+          gh pr create \
+            --repo "$DOWNSTREAM_REPO" \
+            --title "Template update: ${PR_TITLE}" \
+            --body-file /tmp/pr-body \
+            --assignee @me
