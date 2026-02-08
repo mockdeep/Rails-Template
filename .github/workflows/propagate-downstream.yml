@@ -123,6 +123,6 @@ jobs:
 
           gh pr create \
             --repo "$DOWNSTREAM_REPO" \
-            --title "Template update: ${PR_TITLE}" \
+            --title "Template: ${PR_TITLE}" \
             --body-file /tmp/pr-body \
             --assignee @me
