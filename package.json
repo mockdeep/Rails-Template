@@ -4,7 +4,7 @@
   "engines": {
     "node": "22.22.0"
   },
-  "packageManager": "yarn@4.9.2",
+  "packageManager": "pnpm@10.5.2",
   "version": "0.1.0",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
@@ -45,9 +45,9 @@
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=iife --outdir=app/assets/builds --public-path=/assets",
     "eslint": "eslint ./ --cache --max-warnings=0",
     "eslint_find_unused_rules": "eslint-find-rules --unused --flatConfig --no-core eslint.config.mts",
-    "pretest": "yarn tscheck && yarn eslint",
+    "pretest": "pnpm tscheck && pnpm eslint",
     "stylelint": "./node_modules/stylelint/bin/stylelint.mjs 'app/assets/stylesheets/**/*'",
-    "test": "yarn vitest run --coverage",
-    "tscheck": "yarn tsc --noEmit"
+    "test": "pnpm vitest run --coverage",
+    "tscheck": "tsc --noEmit"
   }
 }
