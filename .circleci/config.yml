@@ -78,8 +78,8 @@ jobs:
           command: yarn eslint
 
       - run:
-          name: Jest
-          command: yarn jest --ci
+          name: Vitest
+          command: yarn vitest run --coverage
 
       - run:
           name: Brakeman
