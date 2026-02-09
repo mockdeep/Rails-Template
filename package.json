@@ -2,7 +2,7 @@
   "name": "YourAppNameHere",
   "private": true,
   "engines": {
-    "node": "22.22.0"
+    "node": "25.5.0"
   },
   "packageManager": "pnpm@10.5.2",
   "version": "0.1.0",
