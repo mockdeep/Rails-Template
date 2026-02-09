@@ -31,9 +31,26 @@ jobs:
       matrix:
         repo: ${{ fromJson(needs.setup.outputs.repos) }}
     steps:
+      - name: Parse repo owner and name
+        id: parse
+        env:
+          REPO: ${{ matrix.repo }}
+        run: |
+          echo "owner=${REPO%%/*}" >> "$GITHUB_OUTPUT"
+          echo "name=${REPO##*/}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate installation token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.DOWNSTREAM_APP_ID }}
+          private-key: ${{ secrets.DOWNSTREAM_APP_PRIVATE_KEY }}
+          owner: ${{ steps.parse.outputs.owner }}
+          repositories: ${{ steps.parse.outputs.name }}
+
       - name: Cherry-pick and open PR
         env:
-          GH_TOKEN: ${{ secrets.DOWNSTREAM_PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
@@ -76,6 +93,10 @@ jobs:
           if ! git cherry-pick "${CHERRY_ARGS[@]}" "$MERGE_SHA"; then
             HAS_CONFLICTS=true
           fi
+
+          # Don't propagate changes to this workflow or the downstream repos list
+          git checkout HEAD -- .github/workflows/propagate-downstream.yml 2>/dev/null || git rm -f .github/workflows/propagate-downstream.yml 2>/dev/null || true
+          git checkout HEAD -- .github/downstream_repos.json 2>/dev/null || git rm -f .github/downstream_repos.json 2>/dev/null || true
 
           # Stage everything (including conflict markers if any)
           git add -A
