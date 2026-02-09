@@ -1,1 +1,7 @@
-["mockdeep/flash"]
+[
+  "mockdeep/flash",
+  "mockdeep/questlog",
+  "mockdeep/lmkw",
+  "mockdeep/SJFAQ",
+  "stringer-rss/stringer"
+]
