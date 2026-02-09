@@ -146,4 +146,4 @@ jobs:
             --repo "$DOWNSTREAM_REPO" \
             --title "Template: ${PR_TITLE}" \
             --body-file /tmp/pr-body \
-            --assignee @me
+            --assignee ${{ github.actor }}
