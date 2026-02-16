@@ -42,6 +42,6 @@ export default defineConfig({
     reporters: ["default", "junit"],
     restoreMocks: true,
     root: ".",
-    setupFiles: ["spec/javascript/test_helper.ts"],
+    setupFiles: ["spec/javascript/setup.ts"],
   },
 });
