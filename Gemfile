@@ -11,6 +11,7 @@ gem "rails", "~> 8.1.1"
 
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "cssbundling-rails"
 gem "goldiloader"
 gem "jsbundling-rails"
 gem "pg"
