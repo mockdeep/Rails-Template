@@ -112,18 +112,9 @@ jobs:
 
           # Build commit message
           {
-            if [ "$HAS_CONFLICTS" = true ]; then
-              echo "Apply template update: ${PR_TITLE} (conflicts)"
-            else
-              echo "Apply template update: ${PR_TITLE}"
-            fi
+            echo "Apply template update: ${PR_TITLE}"
             echo ""
             echo "Source: ${PR_URL}"
-            if [ "$HAS_CONFLICTS" = true ]; then
-              echo ""
-              echo "This cherry-pick had conflicts that need manual resolution."
-              echo 'Search for <<<<<<< in the changed files.'
-            fi
           } > /tmp/commit-msg
 
           git commit -F /tmp/commit-msg
