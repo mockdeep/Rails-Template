@@ -1,7 +1,7 @@
 import type {Context, Controller} from "@hotwired/stimulus";
 import {Application} from "@hotwired/stimulus";
 
-import {assert} from "javascript/helpers";
+import {assert} from "helpers";
 
 let application: Application | null = null;
 
