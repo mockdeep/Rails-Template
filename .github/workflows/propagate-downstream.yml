@@ -28,6 +28,12 @@ jobs:
       matrix:
         repo: ${{ fromJson(needs.setup.outputs.repos) }}
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
       - name: Parse repo owner and name
         id: parse
         env:
@@ -48,90 +54,12 @@ jobs:
       - name: Cherry-pick and open PR
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: |
-          set -euo pipefail
-
-          BRANCH="template-update/${PR_NUMBER}"
-
-          # Clone the downstream repo
-          git clone "https://x-access-token:${GH_TOKEN}@github.com/${DOWNSTREAM_REPO}.git" downstream
-          cd downstream
-
-          # Skip if branch already exists (action re-run or duplicate)
-          if git ls-remote --heads origin "$BRANCH" | grep -q .; then
-            echo "Branch $BRANCH already exists on ${DOWNSTREAM_REPO}, skipping"
-            exit 0
-          fi
-
-          git config user.name "Template Bot"
-          git config user.email "template-bot@users.noreply.github.com"
-
-          # Fetch the template repo to get the merge commit
-          git remote add template "https://github.com/${TEMPLATE_REPO}.git"
-          git fetch template main --depth=5
-
-          git checkout -b "$BRANCH"
-
-          # Detect merge commit vs squash commit
-          PARENT_COUNT=$(git cat-file -p "$MERGE_SHA" | grep -c "^parent" || true)
-          CHERRY_ARGS=("-x" "--no-commit")
-          if [ "$PARENT_COUNT" -gt 1 ]; then
-            CHERRY_ARGS=("-m" "1" "${CHERRY_ARGS[@]}")
-          fi
-
-          # Attempt cherry-pick
-          HAS_CONFLICTS=false
-          if ! git cherry-pick "${CHERRY_ARGS[@]}" "$MERGE_SHA"; then
-            HAS_CONFLICTS=true
-          fi
-
-          # Don't propagate changes to this workflow or the downstream repos list
-          git checkout HEAD -- .github/workflows/propagate-downstream.yml 2>/dev/null || git rm -f .github/workflows/propagate-downstream.yml 2>/dev/null || true
-          git checkout HEAD -- .github/downstream_repos.json 2>/dev/null || git rm -f .github/downstream_repos.json 2>/dev/null || true
-
-          # Stage everything (including conflict markers if any)
-          git add -A
-
-          # If there are no changes, skip this repo
-          if git diff --cached --quiet; then
-            echo "No applicable changes for ${DOWNSTREAM_REPO}, skipping"
-            exit 0
-          fi
-
-          # Clean up cherry-pick state so we can do a normal commit
-          rm -f .git/CHERRY_PICK_HEAD
-
-          # Build commit message
-          {
-            echo "Apply template update: ${PR_TITLE}"
-            echo ""
-            echo "Source: ${PR_URL}"
-          } > /tmp/commit-msg
-
-          git commit -F /tmp/commit-msg
-
-          # Push
-          git push origin "$BRANCH"
-
-          # Build PR body
-          {
-            echo "## Template Update"
-            echo ""
-            echo "Cherry-picked from ${PR_URL}"
-            if [ "$HAS_CONFLICTS" = true ]; then
-              echo ""
-              echo '> **This PR has conflicts that need manual resolution.** Search for `<<<<<<<` in the changed files.'
-            fi
-          } > /tmp/pr-body
-
-          gh pr create \
-            --repo "$DOWNSTREAM_REPO" \
-            --title "Template: ${PR_TITLE}" \
-            --body-file /tmp/pr-body \
-            --assignee ${{ github.actor }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: ruby .github/scripts/propagate.rb
