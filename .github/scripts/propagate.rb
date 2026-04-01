@@ -117,14 +117,17 @@ class Propagator
          - If the template adds something new (new lines, new config, new functionality), include it alongside the downstream changes
          - If the changes are incompatible, prefer downstream customizations unless the template change is a clear improvement (security fix, critical update)
       3. After resolving all files, run: git add -A
-      4. Confirm no conflict markers remain: git diff --name-only --diff-filter=U
+      4. Confirm no conflict markers remain by checking for <<<<<<< in each file
     PROMPT
 
     env = { "CLAUDE_CODE_OAUTH_TOKEN" => @claude_oauth_token }
     claude_succeeded = system(env, "claude", "-p", prompt, "--dangerously-skip-permissions")
 
-    stdout, = Open3.capture2("git", "diff", "--name-only", "--diff-filter=U")
-    if claude_succeeded && stdout.strip.empty?
+    has_conflict_markers = @conflicted_files.any? do |file|
+      File.exist?(file) && File.read(file).include?("<<<<<<<")
+    end
+
+    if claude_succeeded && !has_conflict_markers
       @claude_resolved = true
       run!("git", "add", "-A")
     else
@@ -176,7 +179,7 @@ class Propagator
         "> [!WARNING]",
         "> **Conflicts were automatically resolved by Claude.** Please review these files carefully:",
         "",
-        *@conflicted_files.map { |f| "- `#{f}`" }
+        *@conflicted_files.map { |file| "- `#{file}`" }
       ]
     elsif @has_conflicts
       lines += [
