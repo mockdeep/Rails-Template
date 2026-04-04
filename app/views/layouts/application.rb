@@ -8,6 +8,7 @@ module Views
       include Phlex::Rails::Helpers::StylesheetLinkTag
       include Phlex::Rails::Helpers::JavascriptIncludeTag
       include Phlex::Rails::Helpers::LinkTo
+      include Phlex::Rails::Helpers::LinkToUnlessCurrent
       include Phlex::Rails::Helpers::Flash
 
       def view_template
@@ -30,8 +31,8 @@ module Views
               link_to("Account", account_path)
               button_to("Log Out", session_path, method: :delete)
             else
-              link_to("Log In", new_session_path)
-              link_to("Sign Up", new_account_path)
+              link_to_unless_current("Log In", new_session_path)
+              link_to_unless_current("Sign Up", new_account_path)
             end
 
             div(class: "flashes") do
