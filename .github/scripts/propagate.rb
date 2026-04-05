@@ -14,14 +14,13 @@ class Propagator
 
   def initialize
     @gh_token           = ENV.fetch("GH_TOKEN")
-    @claude_oauth_token = ENV["CLAUDE_CODE_OAUTH_TOKEN"]
+    @anthropic_api_key  = ENV.fetch("ANTHROPIC_API_KEY")
     @merge_sha          = ENV.fetch("MERGE_SHA")
     @template_repo      = ENV.fetch("TEMPLATE_REPO")
     @downstream_repo    = ENV.fetch("DOWNSTREAM_REPO")
     @pr_title           = ENV.fetch("PR_TITLE")
     @pr_number          = ENV.fetch("PR_NUMBER")
     @pr_url             = ENV.fetch("PR_URL")
-    @github_actor       = ENV.fetch("GITHUB_ACTOR")
     @branch             = "template-update/#{@pr_number}"
     @has_conflicts      = false
     @claude_resolved    = false
@@ -89,7 +88,7 @@ class Propagator
     stdout, = Open3.capture2("git", "diff", "--name-only", "--diff-filter=U")
     @conflicted_files = stdout.strip.split("\n")
 
-    if @claude_oauth_token && @conflicted_files.any?
+    if @conflicted_files.any?
       resolve_with_claude
     else
       run!("git", "add", "-A")
@@ -120,7 +119,7 @@ class Propagator
       4. Confirm no conflict markers remain by checking for <<<<<<< in each file
     PROMPT
 
-    env = { "CLAUDE_CODE_OAUTH_TOKEN" => @claude_oauth_token }
+    env = { "ANTHROPIC_API_KEY" => @anthropic_api_key }
     claude_succeeded = system(env, "claude", "-p", prompt, "--dangerously-skip-permissions")
 
     has_conflict_markers = @conflicted_files.any? do |file|
@@ -166,7 +165,7 @@ class Propagator
         "--repo", @downstream_repo,
         "--title", "Template: #{@pr_title}",
         "--body-file", f.path,
-        "--assignee", @github_actor)
+        "--assignee", "mockdeep")
     end
   end
 

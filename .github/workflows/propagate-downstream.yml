@@ -54,12 +54,11 @@ jobs:
       - name: Cherry-pick and open PR
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_ACTOR: ${{ github.actor }}
         run: ruby .github/scripts/propagate.rb
