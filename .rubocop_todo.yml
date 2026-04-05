@@ -13,14 +13,6 @@ Bundler/GemVersion:
   Exclude:
     - 'Gemfile'
 
-# Offense count: 9
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: link_or_button, strict
-Capybara/ClickLinkOrButtonStyle:
-  Exclude:
-    - 'spec/system/account_spec.rb'
-    - 'spec/system/sessions_spec.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 I18n/GetText/DecorateFunctionMessage:
