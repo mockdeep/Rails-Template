@@ -14,7 +14,6 @@ class Propagator
 
   def initialize
     @gh_token           = ENV.fetch("GH_TOKEN")
-    @anthropic_api_key  = ENV.fetch("ANTHROPIC_API_KEY")
     @merge_sha          = ENV.fetch("MERGE_SHA")
     @template_repo      = ENV.fetch("TEMPLATE_REPO")
     @downstream_repo    = ENV.fetch("DOWNSTREAM_REPO")
@@ -27,15 +26,36 @@ class Propagator
     @conflicted_files   = []
   end
 
-  def run
+  def prepare
     clone_downstream
     Dir.chdir("downstream") do
-      return if branch_exists?
+      if branch_exists?
+        set_output("skip", "true")
+        return
+      end
 
       configure_git
       fetch_template
       run!("git", "checkout", "-b", @branch)
       cherry_pick
+
+      set_output("has_conflicts", @has_conflicts.to_s)
+      set_output("conflicted_files", @conflicted_files.join("\n"))
+    end
+  end
+
+  def finalize
+    Dir.chdir("downstream") do
+      @has_conflicts = ENV["HAS_CONFLICTS"] == "true"
+      @conflicted_files = ENV.fetch("CONFLICTED_FILES", "").split("\n").reject(&:empty?)
+
+      if @has_conflicts && @conflicted_files.any?
+        has_conflict_markers = @conflicted_files.any? do |file|
+          File.exist?(file) && File.read(file).include?("<<<<<<<")
+        end
+        @claude_resolved = !has_conflict_markers
+      end
+
       restore_excluded_files
       run!("git", "add", "-A")
       return if no_changes?
@@ -87,52 +107,6 @@ class Propagator
     @has_conflicts = true
     stdout, = Open3.capture2("git", "diff", "--name-only", "--diff-filter=U")
     @conflicted_files = stdout.strip.split("\n")
-
-    if @conflicted_files.any?
-      resolve_with_claude
-    else
-      run!("git", "add", "-A")
-    end
-  end
-
-  def resolve_with_claude
-    puts "Attempting to resolve conflicts with Claude Code..."
-    run!("npm", "install", "-g", "@anthropic-ai/claude-code", "--silent")
-
-    prompt = <<~PROMPT
-      You are resolving merge conflicts in a downstream repository that tracks a template.
-
-      Context:
-      - Template repository: #{@template_repo}
-      - Downstream repository: #{@downstream_repo}
-      - Template change being applied: "#{@pr_title}" (#{@pr_url})
-
-      Files with conflicts (containing <<<<<<< markers):
-      #{@conflicted_files.join("\n")}
-
-      Instructions:
-      1. Read each conflicted file
-      2. Resolve every conflict. Default strategy:
-         - If the template adds something new (new lines, new config, new functionality), include it alongside the downstream changes
-         - If the changes are incompatible, prefer downstream customizations unless the template change is a clear improvement (security fix, critical update)
-      3. After resolving all files, run: git add -A
-      4. Confirm no conflict markers remain by checking for <<<<<<< in each file
-    PROMPT
-
-    env = { "ANTHROPIC_API_KEY" => @anthropic_api_key }
-    claude_succeeded = system(env, "claude", "-p", prompt, "--dangerously-skip-permissions")
-
-    has_conflict_markers = @conflicted_files.any? do |file|
-      File.exist?(file) && File.read(file).include?("<<<<<<<")
-    end
-
-    if claude_succeeded && !has_conflict_markers
-      @claude_resolved = true
-      run!("git", "add", "-A")
-    else
-      puts "Claude did not fully resolve conflicts, keeping conflict markers"
-      run!("git", "add", "-A")
-    end
   end
 
   def restore_excluded_files
@@ -191,9 +165,31 @@ class Propagator
     lines.join("\n")
   end
 
+  def set_output(name, value)
+    output_file = ENV["GITHUB_OUTPUT"]
+    return unless output_file
+
+    File.open(output_file, "a") do |f|
+      if value.include?("\n")
+        f.puts "#{name}<<EOF"
+        f.puts value
+        f.puts "EOF"
+      else
+        f.puts "#{name}=#{value}"
+      end
+    end
+  end
+
   def run!(*cmd)
     system(*cmd) or raise "Command failed: #{cmd.join(" ")}"
   end
 end
 
-Propagator.new.run
+case ARGV[0]
+when "prepare"
+  Propagator.new.prepare
+when "finalize"
+  Propagator.new.finalize
+else
+  raise "Usage: propagate.rb [prepare|finalize]"
+end
