@@ -23,6 +23,9 @@ jobs:
     needs: setup
     if: needs.setup.outputs.repos != '[]'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
@@ -51,14 +54,59 @@ jobs:
           owner: ${{ steps.parse.outputs.owner }}
           repositories: ${{ steps.parse.outputs.name }}
 
-      - name: Cherry-pick and open PR
+      - name: Cherry-pick template changes
+        id: cherry-pick
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: ruby .github/scripts/propagate.rb
+        run: ruby .github/scripts/propagate.rb prepare
+
+      - name: Resolve conflicts with Claude
+        if: steps.cherry-pick.outputs.has_conflicts == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          direct_prompt: |
+            You are resolving merge conflicts in a downstream repository that tracks a template.
+
+            Context:
+            - Template repository: ${{ github.repository }}
+            - Downstream repository: ${{ matrix.repo }}
+            - Template change being applied: "${{ github.event.pull_request.title }}" (${{ github.event.pull_request.html_url }})
+
+            Files with conflicts (containing <<<<<<< markers) are in the downstream/ directory:
+            ${{ steps.cherry-pick.outputs.conflicted_files }}
+
+            Instructions:
+            1. Read each conflicted file in the downstream/ directory
+            2. Resolve every conflict. Default strategy:
+               - If the template adds something new (new lines, new config, new functionality), include it alongside the downstream changes
+               - If the changes are incompatible, prefer downstream customizations unless the template change is a clear improvement (security fix, critical update)
+            3. After resolving all files, run: git -C downstream add -A
+            4. Confirm no conflict markers remain by checking for <<<<<<< in each file
+          allowed_tools: |
+            Read
+            Edit
+            Write
+            Glob
+            Grep
+            Bash(git -C downstream add -A)
+
+      - name: Finalize and open PR
+        if: steps.cherry-pick.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          TEMPLATE_REPO: ${{ github.repository }}
+          DOWNSTREAM_REPO: ${{ matrix.repo }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          HAS_CONFLICTS: ${{ steps.cherry-pick.outputs.has_conflicts }}
+          CONFLICTED_FILES: ${{ steps.cherry-pick.outputs.conflicted_files }}
+        run: ruby .github/scripts/propagate.rb finalize
