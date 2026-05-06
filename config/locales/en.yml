@@ -30,4 +30,15 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  accounts:
+    create:
+      success: "Account created successfully"
+      error: "There was a problem setting up your account"
+    update:
+      success: "Account updated successfully"
+      error: "There was a problem updating your account"
+    destroy:
+      success: "Account permanently deleted"
+  sessions:
+    create:
+      error: "Invalid email or password"
