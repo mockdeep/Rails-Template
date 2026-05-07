@@ -137,7 +137,7 @@ class Propagator
       f.flush
       run!("gh", "pr", "create",
         "--repo", @downstream_repo,
-        "--title", "Template: #{@pr_title}",
+        "--title", @pr_title,
         "--body-file", f.path,
         "--assignee", "mockdeep")
     end
