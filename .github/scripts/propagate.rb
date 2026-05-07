@@ -127,7 +127,7 @@ class Propagator
   end
 
   def commit
-    message = "Apply template update: #{@pr_title}\n\nSource: #{@pr_url}"
+    message = "#{@pr_title}\n\nSource: #{@pr_url}"
     run!("git", "commit", "-m", message)
   end
 
