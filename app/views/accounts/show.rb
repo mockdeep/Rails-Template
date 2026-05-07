@@ -14,17 +14,7 @@ module Views
         h1 { "My Account" }
 
         form_with(model: user, url: account_path) do |form|
-          errors = user.errors
-          if errors.any?
-            div(class: "error-explanation") do
-              h2 { "#{pluralize(errors.count, "problem")} with your signup:" }
-              ul do
-                errors.full_messages.each do |message|
-                  li { message }
-                end
-              end
-            end
-          end
+          render(Components::ErrorExplanation.new(errors: user.errors))
 
           div(class: "field") do
             form.label(:email)
