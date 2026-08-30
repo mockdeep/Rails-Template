@@ -12,6 +12,11 @@ class Propagator
     .github/downstream_repos.json
   ].freeze
 
+  # Index stages git records for an unmerged path. Cherry-picking makes the
+  # downstream checkout "ours" and the template commit "theirs".
+  DOWNSTREAM_STAGE = 2
+  TEMPLATE_STAGE = 3
+
   def initialize
     @gh_token           = ENV.fetch("GH_TOKEN")
     @merge_sha          = ENV.fetch("MERGE_SHA")
@@ -24,6 +29,7 @@ class Propagator
     @has_conflicts      = false
     @claude_resolved    = false
     @conflicted_files   = []
+    @deleted_files      = []
   end
 
   def prepare
@@ -41,6 +47,7 @@ class Propagator
 
       set_output("has_conflicts", @has_conflicts.to_s)
       set_output("conflicted_files", @conflicted_files.join("\n"))
+      set_output("deleted_files", @deleted_files.join("\n"))
     end
   end
 
@@ -48,6 +55,7 @@ class Propagator
     Dir.chdir("downstream") do
       @has_conflicts = ENV["HAS_CONFLICTS"] == "true"
       @conflicted_files = ENV.fetch("CONFLICTED_FILES", "").split("\n").reject(&:empty?)
+      @deleted_files = ENV.fetch("DELETED_FILES", "").split("\n").reject(&:empty?)
 
       if @has_conflicts && @conflicted_files.any?
         has_conflict_markers = @conflicted_files.any? do |file|
@@ -108,9 +116,37 @@ class Propagator
     # them conflicts by construction. Clear those before escalating to Claude.
     restore_excluded_files
 
-    stdout, = Open3.capture2("git", "diff", "--name-only", "--diff-filter=U")
-    @conflicted_files = stdout.strip.split("\n")
+    conflicts, deletions = unmerged_paths.partition do |_, stages|
+      stages.include?(DOWNSTREAM_STAGE) && stages.include?(TEMPLATE_STAGE)
+    end
+
+    apply_deletions(deletions.map(&:first))
+
+    @conflicted_files = conflicts.map(&:first)
     @has_conflicts = @conflicted_files.any?
+  end
+
+  # Unmerged index entries, mapped to the stages git recorded for each path.
+  # A path missing a stage is one that side deleted.
+  def unmerged_paths
+    stdout, = Open3.capture2("git", "ls-files", "-u")
+    stages = Hash.new { |paths, path| paths[path] = [] }
+
+    stdout.lines.each do |line|
+      metadata, path = line.split("\t", 2)
+      stages[path.strip] << Integer(metadata.split.last, 10)
+    end
+
+    stages
+  end
+
+  # A file deleted on one side and modified on the other leaves no conflict
+  # markers, so Claude can neither see the conflict nor resolve it: it has no
+  # tool that deletes files. Honour the deletion instead, since whichever side
+  # removed the file meant to remove it.
+  def apply_deletions(files)
+    @deleted_files = files
+    files.each { |file| run!("git", "rm", "-f", "-q", file) }
   end
 
   def restore_excluded_files
@@ -156,6 +192,7 @@ class Propagator
     lines = ["## Template Update", ""]
     lines += [commit_body, ""] unless commit_body.empty?
     lines << "Cherry-picked from #{@pr_url}"
+    lines += deleted_files_note if @deleted_files.any?
 
     if @claude_resolved
       lines += [
@@ -174,6 +211,16 @@ class Propagator
     end
 
     lines.join("\n")
+  end
+
+  def deleted_files_note
+    [
+      "",
+      "> [!NOTE]",
+      "> **Deleted despite local changes.** Each of these was removed on one side and modified on the other, so the deletion was kept. Restore any you still need:",
+      "",
+      *@deleted_files.map { |file| "- `#{file}`" }
+    ]
   end
 
   def set_output(name, value)

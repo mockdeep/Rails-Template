@@ -165,4 +165,5 @@ jobs:
           PR_URL: ${{ needs.setup.outputs.pr_url }}
           HAS_CONFLICTS: ${{ steps.cherry-pick.outputs.has_conflicts }}
           CONFLICTED_FILES: ${{ steps.cherry-pick.outputs.conflicted_files }}
+          DELETED_FILES: ${{ steps.cherry-pick.outputs.deleted_files }}
         run: ruby .github/scripts/propagate.rb finalize
