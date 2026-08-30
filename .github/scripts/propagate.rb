@@ -104,9 +104,13 @@ class Propagator
 
     return if system("git", "cherry-pick", *args, @merge_sha)
 
-    @has_conflicts = true
+    # Excluded files don't exist downstream, so any template change touching
+    # them conflicts by construction. Clear those before escalating to Claude.
+    restore_excluded_files
+
     stdout, = Open3.capture2("git", "diff", "--name-only", "--diff-filter=U")
     @conflicted_files = stdout.strip.split("\n")
+    @has_conflicts = @conflicted_files.any?
   end
 
   def restore_excluded_files
