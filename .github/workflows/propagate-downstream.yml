@@ -4,17 +4,34 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Number of an already-merged PR to propagate again
+        required: true
+        type: string
 
 jobs:
   setup:
+    # Manual runs are deliberate, so they skip the merged/author checks that
+    # filter automatic runs.
     if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.user.login != 'depfu[bot]' &&
-      github.event.pull_request.user.login != 'dependabot[bot]' &&
-      github.event.pull_request.user.login != 'github-actions[bot]'
+      github.event_name == 'workflow_dispatch' || (
+        github.event.pull_request.merged == true &&
+        github.event.pull_request.user.login != 'depfu[bot]' &&
+        github.event.pull_request.user.login != 'dependabot[bot]' &&
+        github.event.pull_request.user.login != 'github-actions[bot]'
+      )
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       repos: ${{ steps.read-repos.outputs.repos }}
+      merge_sha: ${{ steps.pr.outputs.merge_sha }}
+      pr_number: ${{ steps.pr.outputs.number }}
+      pr_title: ${{ steps.pr.outputs.title }}
+      pr_url: ${{ steps.pr.outputs.url }}
     steps:
       - uses: actions/checkout@v6
 
@@ -22,6 +39,31 @@ jobs:
         run: |
           REPOS=$(jq -c . .github/downstream_repos.json)
           echo "repos=$REPOS" >> "$GITHUB_OUTPUT"
+
+      # Read PR details from the API rather than the event payload so that
+      # automatic and manual runs take the same path.
+      - id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number || github.event.pull_request.number }}
+        run: |
+          gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --json mergedAt,mergeCommit,number,title,url > pr.json
+
+          if [ "$(jq -r '.mergedAt // "null"' pr.json)" = "null" ]; then
+            echo "PR #$PR_NUMBER is not merged, nothing to propagate"
+            exit 1
+          fi
+
+          DELIM="EOF_$(openssl rand -hex 16)"
+          {
+            echo "merge_sha=$(jq -r '.mergeCommit.oid' pr.json)"
+            echo "number=$(jq -r '.number' pr.json)"
+            echo "url=$(jq -r '.url' pr.json)"
+            echo "title<<$DELIM"
+            jq -r '.title' pr.json
+            echo "$DELIM"
+          } >> "$GITHUB_OUTPUT"
 
   propagate:
     needs: setup
@@ -62,15 +104,16 @@ jobs:
         id: cherry-pick
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          MERGE_SHA: ${{ needs.setup.outputs.merge_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: ${{ needs.setup.outputs.pr_title }}
+          PR_NUMBER: ${{ needs.setup.outputs.pr_number }}
+          PR_URL: ${{ needs.setup.outputs.pr_url }}
         run: ruby .github/scripts/propagate.rb prepare
 
       - name: Resolve conflicts with Claude
+        id: claude
         if: steps.cherry-pick.outputs.has_conflicts == 'true'
         uses: anthropics/claude-code-action@v1
         with:
@@ -81,7 +124,7 @@ jobs:
             Context:
             - Template repository: ${{ github.repository }}
             - Downstream repository: ${{ matrix.repo }}
-            - Template change being applied: "${{ github.event.pull_request.title }}" (${{ github.event.pull_request.html_url }})
+            - Template change being applied: "${{ needs.setup.outputs.pr_title }}" (${{ needs.setup.outputs.pr_url }})
 
             Files with conflicts (containing <<<<<<< markers) are in the downstream/ directory:
             ${{ steps.cherry-pick.outputs.conflicted_files }}
@@ -96,16 +139,30 @@ jobs:
           claude_args: |
             --allowedTools "Read,Edit,Write,Glob,Grep,Bash(git -C downstream add -A)"
 
+      # The action hides Claude's output, so a failure surfaces only as
+      # "is_error:true". Print just the result text to explain why.
+      - name: Show Claude failure reason
+        if: failure() && steps.claude.conclusion == 'failure'
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          FILE="${EXECUTION_FILE:-$RUNNER_TEMP/claude-execution-output.json}"
+          if [ ! -f "$FILE" ]; then
+            echo "No execution output found at $FILE"
+            exit 0
+          fi
+          jq -r '.[] | select(.type == "result") | .result // .error // "(no result text)"' "$FILE"
+
       - name: Finalize and open PR
         if: steps.cherry-pick.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          MERGE_SHA: ${{ needs.setup.outputs.merge_sha }}
           TEMPLATE_REPO: ${{ github.repository }}
           DOWNSTREAM_REPO: ${{ matrix.repo }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: ${{ needs.setup.outputs.pr_title }}
+          PR_NUMBER: ${{ needs.setup.outputs.pr_number }}
+          PR_URL: ${{ needs.setup.outputs.pr_url }}
           HAS_CONFLICTS: ${{ steps.cherry-pick.outputs.has_conflicts }}
           CONFLICTED_FILES: ${{ steps.cherry-pick.outputs.conflicted_files }}
         run: ruby .github/scripts/propagate.rb finalize
