@@ -72,10 +72,9 @@ jobs:
 
       - name: Resolve conflicts with Claude
         if: steps.cherry-pick.outputs.has_conflicts == 'true'
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          mode: 'agent'
           prompt: |
             You are resolving merge conflicts in a downstream repository that tracks a template.
 
@@ -94,13 +93,8 @@ jobs:
                - If the changes are incompatible, prefer downstream customizations unless the template change is a clear improvement (security fix, critical update)
             3. After resolving all files, run: git -C downstream add -A
             4. Confirm no conflict markers remain by checking for <<<<<<< in each file
-          allowed_tools: |
-            Read
-            Edit
-            Write
-            Glob
-            Grep
-            Bash(git -C downstream add -A)
+          claude_args: |
+            --allowedTools "Read,Edit,Write,Glob,Grep,Bash(git -C downstream add -A)"
 
       - name: Finalize and open PR
         if: steps.cherry-pick.outputs.skip != 'true'
