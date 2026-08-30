@@ -131,8 +131,13 @@ class Propagator
   end
 
   def commit
-    message = "#{@pr_title}\n\nSource: #{@pr_url}"
-    run!("git", "commit", "-m", message)
+    parts = [@pr_title, commit_body, "Source: #{@pr_url}"].reject(&:empty?)
+    run!("git", "commit", "-m", parts.join("\n\n"))
+  end
+
+  def commit_body
+    @commit_body ||=
+      Open3.capture2("git", "log", "-1", "--format=%b", @merge_sha).first.strip
   end
 
   def open_pr
@@ -148,7 +153,9 @@ class Propagator
   end
 
   def pr_body
-    lines = ["## Template Update", "", "Cherry-picked from #{@pr_url}"]
+    lines = ["## Template Update", ""]
+    lines += [commit_body, ""] unless commit_body.empty?
+    lines << "Cherry-picked from #{@pr_url}"
 
     if @claude_resolved
       lines += [
