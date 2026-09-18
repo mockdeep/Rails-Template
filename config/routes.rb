@@ -5,4 +5,8 @@ Rails.application.routes.draw do
 
   resource :account, only: [:new, :create, :show, :update, :destroy]
   resource :session, only: [:new, :create, :destroy]
+
+  constraints AdminConstraint.new do
+    mount GoodJob::Engine, at: "good_job"
+  end
 end
