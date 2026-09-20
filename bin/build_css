@@ -5,5 +5,4 @@ set -euo pipefail
 esbuild app/assets/stylesheets/application.css \
   --bundle \
   --outdir=app/assets/builds \
-  --public-path=/assets \
   "$@"
