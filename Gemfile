@@ -13,7 +13,6 @@ gem "bcrypt"
 gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "goldiloader"
-gem "good_job"
 gem "jsbundling-rails"
 gem "pg"
 gem "phlex-rails"
