@@ -176,11 +176,11 @@ importers:
         specifier: ^8.0.21
         version: 8.0.23
       '@rails/actioncable':
-        specifier: ^8.1.300
-        version: 8.1.300
+        specifier: ^8.1.400
+        version: 8.1.400
       '@rails/activestorage':
-        specifier: ^8.1.300
-        version: 8.1.300
+        specifier: ^8.1.400
+        version: 8.1.400
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.7
@@ -228,8 +228,8 @@ importers:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.69.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
       eslint-plugin-perfectionist:
-        specifier: ^5.11.0
-        version: 5.11.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+        specifier: ^5.12.1
+        version: 5.12.1(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       globals:
         specifier: ^17.12.0
         version: 17.12.0
@@ -672,11 +672,11 @@ packages:
   '@oxc-project/types@0.115.0':
     resolution: {integrity: sha512-4n91DKnebUS4yjUHl2g3/b2T+IUdCfmoZGhmwsovZCDaJSs+QkVAM+0AqqTxHSsHfeiMuueT75cZaZcT/m0pSw==}
 
-  '@rails/actioncable@8.1.300':
-    resolution: {integrity: sha512-zOENQsq3NM2jyBY6Z2qtZa3V/R/6OEqA+LGKixQbBMl7kk/J3FXDRcszPe74LsHNgB01jCl/DXu/xA8sHt4I/g==}
+  '@rails/actioncable@8.1.400':
+    resolution: {integrity: sha512-Qffc3/I9xcpeaal12hmi9EPRV3hz9FvakUHBR7kL0jpZviWwO9dyaG8F1ltcjkHIdFxQ5QqzRyequAWHMq17xQ==}
 
-  '@rails/activestorage@8.1.300':
-    resolution: {integrity: sha512-AOv3zZrTJjQlzm4L9uzOQtCz6zaM4IqUyux6yzSqmS+PZ8EzwD1F2JAc4LlJNJAv4MSyNYriG+CaCm1QbQTjsA==}
+  '@rails/activestorage@8.1.400':
+    resolution: {integrity: sha512-ScpkkHXTQ7QByvzLbnrnubpsWRKhlu08kXyRhSV+Hh1s1X43lv5T0PFLhXAvmqrIcq8nQ2up8iyuCmIzacPDDw==}
 
   '@rolldown/binding-android-arm64@1.0.0-rc.9':
     resolution: {integrity: sha512-lcJL0bN5hpgJfSIz/8PIf02irmyL43P+j1pTCfbD1DbLkmGRuFIA4DD3B3ZOvGqG0XiVvRznbKtN0COQVaKUTg==}
@@ -1446,11 +1446,14 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-perfectionist@5.11.0:
-    resolution: {integrity: sha512-kZV1otBcu4xT5R1p+0x1N1wRv4pS+OIbxrA47n5a1fTnN3MWbexOx5eQgbQhGyCNbpvF/rqrbnpkGjumHF+Y0Q==}
+  eslint-plugin-perfectionist@5.12.1:
+    resolution: {integrity: sha512-krdSE7Dz+TCtcVr2+rfNhlOIFFBJcUdoRvjaN7JQnsaVnxJw+BZh9wMkY3MSLCJat+yW+UPTQLKS82Epc7MGZA==}
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       eslint: ^8.45.0 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      eslint:
+        optional: true
 
   eslint-rule-documentation@1.0.23:
     resolution: {integrity: sha512-pWReu3fkohwyvztx/oQWWgld2iad25TfUdi6wvhhaDPIQjHU/pyvlKgXFw1kX31SQK2Nq9MH+vRDWB0ZLy8fYw==}
@@ -2969,7 +2972,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.23':
     dependencies:
       '@hotwired/turbo': 8.0.23
-      '@rails/actioncable': 8.1.300
+      '@rails/actioncable': 8.1.400
 
   '@hotwired/turbo@8.0.23': {}
 
@@ -3033,9 +3036,9 @@ snapshots:
 
   '@oxc-project/types@0.115.0': {}
 
-  '@rails/actioncable@8.1.300': {}
+  '@rails/actioncable@8.1.400': {}
 
-  '@rails/activestorage@8.1.300':
+  '@rails/activestorage@8.1.400':
     dependencies:
       spark-md5: 3.0.2
 
@@ -3271,7 +3274,7 @@ snapshots:
       debug: 4.4.3(supports-color@10.2.2)
       minimatch: 10.2.6
       semver: 7.7.4
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -3882,11 +3885,13 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-perfectionist@5.11.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3):
+  eslint-plugin-perfectionist@5.12.1(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3):
     dependencies:
+      '@typescript-eslint/types': 8.70.0
       '@typescript-eslint/utils': 8.70.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      eslint: 10.11.0(jiti@2.7.0)(supports-color@10.2.2)
       natural-orderby: 5.0.0
+    optionalDependencies:
+      eslint: 10.11.0(jiti@2.7.0)(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
