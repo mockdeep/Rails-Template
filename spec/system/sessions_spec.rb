@@ -3,7 +3,7 @@
 RSpec.describe "user sessions" do
   def user_params
     {
-      email: "demo@lmkw.io",
+      email: "demo@example.com",
       password: "secret",
       password_confirmation: "secret",
     }
