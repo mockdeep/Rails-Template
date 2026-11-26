@@ -26,7 +26,7 @@ module Views
           end
         end
 
-        button_to("Delete Account", account_path, method: :delete)
+        a(href: remove_account_path) { "Delete Account" }
       end
     end
   end
