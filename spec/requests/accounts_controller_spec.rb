@@ -152,6 +152,22 @@ RSpec.describe AccountsController do
     end
   end
 
+  describe "#remove" do
+    it "redirects to log in page when user is not logged in" do
+      get(remove_account_path)
+
+      expect(response).to redirect_to(new_session_path)
+    end
+
+    it "renders a confirmation page with the account email" do
+      login_as(default_user)
+
+      get(remove_account_path)
+
+      expect(response.body).to include("Delete Account", default_user.email)
+    end
+  end
+
   describe "#destroy" do
     context "when user is not logged in" do
       it "redirects to log in page" do
