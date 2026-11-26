@@ -8,7 +8,7 @@ Capybara.enable_aria_label = true
 Capybara.save_path = ENV.fetch("CIRCLE_ARTIFACTS", Capybara.save_path)
 Capybara.server = :puma, { Silent: true }
 
-driver = ENV.fetch("DRIVER", :firefox).to_sym
+driver = ENV.fetch("DRIVER", :headless_firefox).to_sym
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
