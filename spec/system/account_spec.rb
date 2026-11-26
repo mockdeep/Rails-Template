@@ -2,7 +2,7 @@
 
 RSpec.describe "user account" do
   def sign_up_with(
-    email: "demo@lmkw.io",
+    email: "demo@example.com",
     password: "secret",
     password_confirmation: password
   )
@@ -28,25 +28,25 @@ RSpec.describe "user account" do
   end
 
   it "allows a user to sign up for an account" do
-    sign_up_with(email: "demo@lmkw.io")
+    sign_up_with(email: "demo@example.com")
 
     expect(page).to have_flash(:success, "Account created")
-    expect(page).to have_text("demo@lmkw.io")
+    expect(page).to have_text("demo@example.com")
   end
 
   it "allows a user to edit their email" do
-    sign_up_with(email: "demo@lmkw.io")
-    update_account_with(email: "demo2@lmkw.io")
+    sign_up_with(email: "demo@example.com")
+    update_account_with(email: "demo2@example.com")
 
-    expect(page).to have_text("demo2@lmkw.io")
+    expect(page).to have_text("demo2@example.com")
   end
 
   it "allows a user to delete their account" do
-    sign_up_with(email: "demo@lmkw.io")
+    sign_up_with(email: "demo@example.com")
 
     delete_account
 
     expect(page).to have_flash(:success, "Account permanently deleted")
-    expect(page).to have_no_text("demo@lmkw.io")
+    expect(page).to have_no_text("demo@example.com")
   end
 end

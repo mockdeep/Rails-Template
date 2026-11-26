@@ -1,7 +1,7 @@
 [
   "mockdeep/flash",
   "mockdeep/questlog",
-  "mockdeep/lmkw",
+  "mockdeep/notice",
   "mockdeep/SJFAQ",
   "stringer-rss/stringer"
 ]
