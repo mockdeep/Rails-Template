@@ -1,4 +1,4 @@
-import {defineConfig} from "vitest/config";
+import { defineConfig } from "vitest/config";
 import path from "node:path";
 
 const root = import.meta.dirname;
@@ -10,11 +10,11 @@ function appPath(subpath: string): string {
 export default defineConfig({
   resolve: {
     alias: [
-      {find: /^channels\//u, replacement: appPath("channels")},
-      {find: /^controllers\//u, replacement: appPath("controllers")},
-      {find: /^helpers\//u, replacement: appPath("helpers")},
-      {find: /^javascript\//u, replacement: appPath("")},
-      {find: /^spec\//u, replacement: `${path.resolve(root, "spec")}/`},
+      { find: /^channels\//u, replacement: appPath("channels") },
+      { find: /^controllers\//u, replacement: appPath("controllers") },
+      { find: /^helpers\//u, replacement: appPath("helpers") },
+      { find: /^javascript\//u, replacement: appPath("") },
+      { find: /^spec\//u, replacement: `${path.resolve(root, "spec")}/` },
       {
         find: /^support\//u,
         replacement: `${path.resolve(root, "spec/javascript/support")}/`,

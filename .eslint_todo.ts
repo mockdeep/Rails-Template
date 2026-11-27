@@ -6,28 +6,6 @@
 import type {Linter} from "eslint";
 
 const config: Linter.Config[] = [
-  // Offense count: 82
-  {
-    files: [
-      "app/javascript/application.ts",
-      "app/javascript/channels/consumer.ts",
-      "app/javascript/controllers/application.ts",
-      "app/javascript/controllers/dialog_controller.ts",
-      "app/javascript/controllers/hotkeys_controller.ts",
-      "app/javascript/controllers/index.ts",
-      "app/javascript/helpers/assert.ts",
-      "eslint.config.ts",
-      "spec/javascript/application_spec.ts",
-      "spec/javascript/controllers/dialog_controller_spec.ts",
-      "spec/javascript/controllers/hotkeys_controller_spec.ts",
-      "spec/javascript/helpers/assert_spec.ts",
-      "spec/javascript/support/stimulus.ts",
-      "vitest.config.ts",
-    ],
-    rules: {
-      "@stylistic/list-style": "off",
-    },
-  },
   // Offense count: 8
   {
     files: [
